@@ -80,7 +80,7 @@
         axios.request(options).then(function (response) {
             localStorage.setItem("auth_token",response.data.data._id);
             localStorage.removeItem("user_skill_card_serial");
-            c$("#alert").html("<div class=\"alert alert-success\" >\n" +
+            $("#alert").html("<div class=\"alert alert-success\" >\n" +
                 "                    <h4 class=\"alert-heading\">Login effettuato correttamente</h4>\n" +
                 "                </div>");
             console.log(response.data);
