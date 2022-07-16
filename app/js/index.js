@@ -1,7 +1,7 @@
+import {axios} from 'axios.js'
 let scanButton=document.getElementById("scanButton");
 scanButton.addEventListener("click", async () => {
     console.log("User clicked scan button");
-
     try {
         const ndef = new NDEFReader();
         await ndef.scan();
@@ -13,7 +13,8 @@ scanButton.addEventListener("click", async () => {
 
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
             console.log(`> Serial Number: ${serialNumber}`);
-            console.log(`> Records: (${message.records.length})`);
+            console.log(serialNumber.replace(":",""));
+
         });
     } catch (error) {
         console.log("Argh! " + error);
