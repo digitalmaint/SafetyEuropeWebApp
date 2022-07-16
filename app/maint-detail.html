@@ -431,12 +431,12 @@
         </header>
 
         <div class="page-heading">
-            <h3>Manutenzioni Preventive</h3>
+            <h3>Manutenzione Preventiva</h3>
         </div>
         <div class="page-content">
             <section class="row">
                 <div class="col-12 col-md-6 col-lg-6" id="maints">
-                    <img src="assets/images/svg-loaders/grid.svg" class="me-4" style="width: 3rem" alt="audio" id="spinner">
+
 
                 </div>
 
@@ -456,43 +456,57 @@
 <script src="../assets/js/app.js"></script>
 <script src="../assets/js/pages/dashboard.js"></script>
 <script>
-
     if(localStorage.getItem("auth_token")== null || localStorage.getItem("server_url")== null){
         window.location.href = "./index.html";
     }else{
-        const options = {
-            method: 'GET',
-            url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances',
-            params: {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        if(!urlParams.has('id')){
+            window.location.href = "./index.html";
+        }else{
+            const maint_id = urlParams.get('id');
+            const options = {
+                method: 'GET',
+                url: localStorage.getItem("server_url")+'services/rest/v3/processes/PreventiveMaint/instances/'+maint_id,
+                params: {include_tasklist: 'true'
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Cmdbuild-authorization': localStorage.getItem("auth_token")
+                }
+            };
 
-                include_tasklist: 'true'
-            },
-            headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
-    };
+            axios.request(options).then(function (response) {
+                console.log("SINGLE MAINTENANCE _ GETTED")
+                console.log(response.data);
+                let maint=response.data.data;
+                $("#maints").append("<div class=\"card\">\n" +
+                    "                        <div class=\"card-content\">\n" +
+                    "                            <div class=\"card-body\">\n" +
+                    "                                <h4 class=\"card-title\">"+maint.ShortDescr+"</h4>\n" +
+                    "                                <p class=\"card-text\">\n" +maint.Description +"</p>\n" +
+                    "                                <p class=\"card-text\">\n" +maint._CISubset_description+"</p>\n" +
+                    "                                <p class=\"card-text\">\n" +maint._CISubset_description+"</p>\n" +
+                    "                            </div>\n" +
+                    "                        </div>\n" +
+                    "                        <div class=\"card-footer d-flex justify-content-between\">\n" +
+                    "                            <span>Stato: "+maint._ProcessStatus_description_translation+"</span>\n" +
+                    "                            <button class=\"btn btn-light-primary\" onclick='window.location.href =\".maint-detail.html?id="+maint._id+"\"' >Dettagli</button>\n" +
+                    "                        </div>\n" +
+                    "                    </div>");
 
-    axios.request(options).then(function (response) {
-        console.log("GETTED MaINTS");
-        console.log(response.data);
-        response.data.data.forEach(maint => {
-            $("#spinner").visibility=false;
-            $("#maints").append("<div class=\"card\">\n" +
-                "                        <div class=\"card-content\">\n" +
-                "                            <div class=\"card-body\">\n" +
-                "                                <h4 class=\"card-title\">"+maint.ShortDescr+"</h4>\n" +
-                "                                <p class=\"card-text\">\n" +maint.Description +"</p>\n" +
-                "                                <p class=\"card-text\">\n" +maint._CISubset_description+"</p>\n" +
-                "                            </div>\n" +
-                "                        </div>\n" +
-                "                        <div class=\"card-footer d-flex justify-content-between\">\n" +
-                "                            <span>Stato: "+maint._ProcessStatus_description_translation+"</span>\n" +
-                "                            <button class=\"btn btn-light-primary\" onclick='window.location.href =\".maint-detail.html?id="+maint._id+"\"' >Dettagli</button>\n" +
-                "                        </div>\n" +
-                "                    </div>");
-        })
+            }).catch(function (error) {
+                console.error(error);
+            });
 
-    }).catch(function (error) {
-        console.error(error);
-    });
+
+
+
+        }
+
+
+
+
 
     }
 
@@ -503,3 +517,4 @@
 </body>
 
 </html>
+
