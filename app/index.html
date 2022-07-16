@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="password" class="form-control form-control-xl" placeholder="Password">
+                        <input type="password" id="password" class="form-control form-control-xl" placeholder="Password">
                         <div class="form-control-icon">
                             <i class="bi bi-shield-lock"></i>
                         </div>
@@ -75,9 +75,16 @@
         };
 
         axios.request(options).then(function (response) {
+            localStorage.setItem("auth_token",response.data.data._id);
+            localStorage.removeItem("user_skill_card_serial");
             console.log("LOGGED");
             console.log(response.data);
         }).catch(function (error) {
+            $("#alert").html("<div class=\"alert alert-danger\" >\n" +
+                "                    <h4 class=\"alert-heading\">Errore nel Login</h4>\n" +
+                "                    <p>Si è verificato un errore durante la chiamata per ottenere il Token di Autenticazione</p>\n" +
+                "                    <p id=\"error\"></p>\n" +
+                "                </div>")
             console.error(error);
         });
 
@@ -143,7 +150,7 @@
 
 
                     }).catch(function (error) {
-                        $("#alert").html("<div class=\"alert alert-primary\" >\n" +
+                        $("#alert").html("<div class=\"alert alert-danger\" >\n" +
                             "                    <h4 class=\"alert-heading\">Errore nella lettura dell'ambiente</h4>\n" +
                             "                    <p>Si è verificato un errore durante la chiamata per ottenere le informazioni di base sull'ambienete OpenMaint</p>\n" +
                             "                    <p id=\"error\"></p>\n" +
@@ -152,7 +159,7 @@
 
                 }
                 else{
-                    $("#alert").html("<div class=\"alert alert-primary\" >\n" +
+                    $("#alert").html("<div class=\"alert alert-danger\" >\n" +
                         "                    <h4 class=\"alert-heading\">Errore nella Lettura NFC</h4>\n" +
                         "                    <p>Si è verificato un errore nella lettura della Skill Card</p>\n" +
                         "                    <p id=\"error\"></p>\n" +
