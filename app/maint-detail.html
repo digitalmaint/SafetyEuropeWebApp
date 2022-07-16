@@ -483,14 +483,24 @@
                     "                        <div class=\"card-content\">\n" +
                     "                            <div class=\"card-body\">\n" +
                     "                                <h4 class=\"card-title\">"+maint.ShortDescr+"</h4>\n" +
-                    "                                <p class=\"card-text\">\n" +maint.Description +"</p>\n" +
-                    "                                <p class=\"card-text\">\n" +maint._CISubset_description+"</p>\n" +
-                    "                                <p class=\"card-text\">\n" +maint._CISubset_description+"</p>\n" +
+                    "                                <p class=\"card-text\">Descrizione Manutenzione: " +maint.Description +"</p>\n" +
+                    "                                <p class=\"card-text\">Asset: "+maint._CISubset_description+"</p>\n" +
+                    "                                <p class=\"card-text\">\n"+maint._CISubset_description+"</p>\n" +
                     "                            </div>\n" +
                     "                        </div>\n" +
                     "                        <div class=\"card-footer d-flex justify-content-between\">\n" +
-                    "                            <span>Stato: "+maint._ProcessStatus_description_translation+"</span>\n" +
-                    "                            <button class=\"btn btn-light-primary\" onclick='window.location.href =\".maint-detail.html?id="+maint._id+"\"' >Dettagli</button>\n" +
+                    "                            <span>Stato corrente: "+maint._ProcessStatus_description_translation+"</span>\n" +
+                    "                            <div class=\"col-md-6 mb-4\">\n" +
+                    "                                    <h6>Cambia stato:</h6>\n" +
+                    "                                    <p>Use  class for basic select control.</p>\n" +
+                    "                                    <fieldset class=\"form-group\">\n" +
+                    "                                        <select class=\"form-select\" id=\"basicSelect\">\n" +
+                    "                                            <option>IT</option>\n" +
+                    "                                            <option>Blade Runner</option>\n" +
+                    "                                            <option>Thor Ragnarok</option>\n" +
+                    "                                        </select>\n" +
+                    "                                    </fieldset>\n" +
+                    "                                </div>" +
                     "                        </div>\n" +
                     "                    </div>");
 
