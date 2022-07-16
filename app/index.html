@@ -98,7 +98,7 @@
                         url: server_url+'/services/rest/v3/sessions',
                         params: {scope: 'service', returnId: 'true'},
                         headers: {'Content-Type': 'application/json'},
-                        data: '{\n	username: "admin",\n	password: "p52gYEG2"\n}'
+                        data: '{	username: "admin",	password: "p52gYEG2"}'
                     };
 
                     axios.request(options).then(function (response) {
