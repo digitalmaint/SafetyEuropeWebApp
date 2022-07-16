@@ -531,19 +531,23 @@
                     "                                </li>\n" +
                     "                                <li class=\"list-group-item \"><div class=\"col-md-6 mb-1\">\n" +
                     "                                    <div class=\"input-group mb-3\">\n" +
-                    "                                        <button class=\"btn btn-primary dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">STATO</button>\n" +
+                    "                                        <button class=\"btn btn-primary dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"></button>\n" +
                     "                                        <ul class=\"dropdown-menu\">\n" +
-                    "                                            <li><a class=\"dropdown-item\" href=\"#\">Non Fatto</a></li>\n" +
-                    "                                            <li><a class=\"dropdown-item\" href=\"#\">O.K.</a></li>\n" +
-                    "                                            <li><a class=\"dropdown-item\" href=\"#\">K.O.</a></li>\n" +
+                    "                                            <li> Non Fatto</li>" +
+                    "                                            <li> O.K.</li>\n" +
+                    "                                            <li> K.O.</li>\n" +
                     "                                        </ul>\n" +
-                    "                                        <input type=\"text\" class=\"form-control\"  readonly value='TASK1'>\n" +
+                    "                                        <input type=\"text\" class=\"form-control\"  readonly value='TASK1'>" +
+                    "<span class=\"input-group-text\"> OK</span>"+
                     "                                    </div>\n" +
                     "                                </div>" +
                     "                                </li>\n" +
                     "                            </ul>\n" +
 
-                    "                    </div>");
+                    "                    </div>"+
+                    "         <button  class=\"btn btn-success\">Salva Modifiche</button>"
+
+                );
 
             }).catch(function (error) {
                 console.error(error);
