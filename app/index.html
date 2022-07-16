@@ -20,8 +20,8 @@
     <div class="row h-100">
         <div class="col-lg-5 col-12">
             <div id="auth-left">
-                <div class="auth-logo">
-                    <a href="index.html"><img src="../assets/images/logo/logo.png" height="50%" alt="Logo"></a>
+                <div class="auth-logo" style="margin-bottom: unset">
+                    <a href="index.html"><img src="../assets/images/logo/logo.png" height="50%" width="100%" alt="Logo"></a>
                 </div>
                 <h1 class="auth-title">Log in.</h1>
                 <div id="alert">
@@ -104,7 +104,11 @@
                     axios.request(options).then(function (response) {
                         console.log(response.data);
                     }).catch(function (error) {
-                        console.error(error);
+                        $("#alert").html("<div class=\"alert alert-primary\" >\n" +
+                            "                    <h4 class=\"alert-heading\">Errore nella lettura dell'ambiente</h4>\n" +
+                            "                    <p>Si è verificato un errore durante la chiamata per ottenere le informazioni di base sull'ambienete OpenMaint</p>\n" +
+                            "                    <p id=\"error\"></p>\n" +
+                            "                </div>")
                     });
 
                 }
