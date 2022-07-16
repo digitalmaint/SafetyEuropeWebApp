@@ -105,6 +105,7 @@
                     axios.request(options).then(function (response) {
                         console.log(response.data);
                         let token=response.data._id;
+                        console.log(token);
                         const options = {
                             method: 'GET',
                             url: server_url+'/services/rest/v3/classes/NFCUserMapping/cards/',
