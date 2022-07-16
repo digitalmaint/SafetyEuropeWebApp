@@ -5,34 +5,20 @@
 <script>
 
 
-    if (!("NDEFReader" in window)){
-        document.getElementById("p").append("Web NFC is not available. Use Chrome on Android.");
-    }else{
-        document.getElementById("p").append("Web NFC is  available.");
-    }
 
 
-    const nfcPermissionStatus = await navigator.permissions.query({ name: "nfc" });
-    if (nfcPermissionStatus.state === "granted") {
-        document.getElementById("p").append("granted")
-    }else{
-        document.getElementById("p").append("not granted")
-    }
     const ndef = new NDEFReader();
-
-    function read() {
-        return new Promise((resolve, reject) => {
-            const ctlr = new AbortController();
-            ctlr.signal.onabort = reject;
-            ndef.addEventListener("reading", event => {
-                ctlr.abort();
-                resolve(event);
-            }, { once: true });
-            ndef.scan({ signal: ctlr.signal }).catch(err => reject(err));
-        });
-    }
-
-    read().then(({ serialNumber }) => {
-        document.getElementById("p").append(serialNumber);
+    ndef.scan().then(() => {
+        console.log("Scan started successfully.");
+        ndef.onreadingerror = () => {
+            console.log("Cannot read data from the NFC tag. Try another one?");
+        };
+        ndef.onreading = event => {
+            console.log("NDEF message read.");
+        };
+    }).catch(error => {
+        console.log(`Error! Scan failed to start: ${error}.`);
     });
+
+
 </script>
