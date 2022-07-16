@@ -115,8 +115,8 @@
 
                         axios.request(options).then(function (response) {
                             console.log(response.data);
-                           let username=jsonPath(response.data,'$.data[?(@.Code=="'+localStorage.getItem("user_skill_card_serial")+'")]')[0]
-                            console.log(username)
+                           let NFCUser=jsonPath(response.data,'$.data[?(@.Code=="'+localStorage.getItem("user_skill_card_serial")+'")]')[0]
+                            console.log(NFCUser.Username)
                         }).catch(function (error) {
                             console.error(error);
                         });
