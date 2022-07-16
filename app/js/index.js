@@ -13,8 +13,8 @@ scanButton.addEventListener("click", async () => {
 
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
             console.log(`> Serial Number: ${serialNumber}`);
-            console.log(serialNumber.replace(":",""));
-            //localStorage.setItem("user_skill_card_serial",serialNumber.replace(":",""));
+            console.log(serialNumber.replaceAll(":",""));
+            localStorage.setItem("user_skill_card_serial",serialNumber.replace(":",""));
 
         });
     } catch (error) {
