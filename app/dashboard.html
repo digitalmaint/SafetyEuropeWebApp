@@ -456,12 +456,12 @@
 <script src="../assets/js/app.js"></script>
 <script src="../assets/js/pages/dashboard.js"></script>
 <script>
-    if(localStorage.getItem("auth_token")== null && localStorage.getItem("server_url")== null){
+    if(localStorage.getItem("auth_token")== null || localStorage.getItem("server_url")== null){
         window.location.href = "./index.html";
     }else{
         const options = {
         method: 'GET',
-            url: localStorage.getItem("server_url")+'/openmaint-test/services/rest/v3/processes/PreventiveMaint/instances',
+            url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances',
             params: {
                 sort: [{"property":"Sorting","direction":"DESC"}],
                 filter: {"attribute":{"and":[{"simple":{"attribute":"FlowStatus","operator":"equal","value":["1"]}},{"simple":{"attribute":"ProcessStatus","operator":"notequal","value":["277465"]}}]}},
