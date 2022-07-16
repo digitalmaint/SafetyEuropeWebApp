@@ -432,35 +432,9 @@
         </div>
         <div class="page-content">
             <section class="row">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <h4 class="card-title">Manutenzione</h4>
-                            <p class="card-text">
-                                Gummies bonbon apple pie fruitcake icing biscuit apple pie jelly-o sweet roll. Toffee
-                                sugar plum sugar plum jelly-o jujubes bonbon dessert carrot cake.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between">
-                        <span>Card Footer</span>
-                        <button class="btn btn-light-primary">Read More</button>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <h4 class="card-title">Manutenzione</h4>
-                            <p class="card-text">
-                                Gummies bonbon apple pie fruitcake icing biscuit apple pie jelly-o sweet roll. Toffee
-                                sugar plum sugar plum jelly-o jujubes bonbon dessert carrot cake.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between">
-                        <span>Card Footer</span>
-                        <button class="btn btn-light-primary">Read More</button>
-                    </div>
+                <div class="col-12 col-md-6 col-lg-6" id="maints">
+
+
                 </div>
 
             </section>
@@ -478,6 +452,52 @@
 </div>
 <script src="../assets/js/app.js"></script>
 <script src="../assets/js/pages/dashboard.js"></script>
+<script>
+    if(localStorage.getItem("auth_token")== null && localStorage.getItem("server_url")== null){
+        window.location.href = "./index.html";
+    }else{
+        const options = {
+        method: 'GET',
+            url: localStorage.getItem("server_url")+'/openmaint-test/services/rest/v3/processes/PreventiveMaint/instances',
+            params: {
+                sort: [{"property":"Sorting","direction":"DESC"}],
+                filter: {"attribute":{"and":[{"simple":{"attribute":"FlowStatus","operator":"equal","value":["1"]}},{"simple":{"attribute":"ProcessStatus","operator":"notequal","value":["277465"]}}]}},
+                include_tasklist: 'true'
+            },
+        headers: {
+            'Content-Type': 'application/json',
+                'Cmdbuild-authorization': localStorage.getItem("auth_token")
+        }
+    };
+
+    axios.request(options).then(function (response) {
+        console.log("GETTED MaINTS");
+        console.log(response.data);
+        response.data.data.each(maint=>{
+            document.getElementById("maints").append("<div class=\"card\">\n" +
+                "                        <div class=\"card-content\">\n" +
+                "                            <div class=\"card-body\">\n" +
+                "                                <h4 class=\"card-title\">maint._id</h4>\n" +
+                "                                <p class=\"card-text\">\n" +
+                "                                    Gummies bonbon apple pie fruitcake icing biscuit apple pie jelly-o sweet roll. Toffee\n" +
+                "                                    sugar plum sugar plum jelly-o jujubes bonbon dessert carrot cake.\n" +
+                "                                </p>\n" +
+                "                            </div>\n" +
+                "                        </div>\n" +
+                "                        <div class=\"card-footer d-flex justify-content-between\">\n" +
+                "                            <span>Card Footer</span>\n" +
+                "                            <button class=\"btn btn-light-primary\">Read More</button>\n" +
+                "                        </div>\n" +
+                "                    </div>");
+        })
+
+    }).catch(function (error) {
+        console.error(error);
+    });
+
+    }
+
+</script>
 
 
 </body>

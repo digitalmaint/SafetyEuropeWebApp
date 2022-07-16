@@ -64,7 +64,7 @@
 
 </div>
 <script>
-    if(localStorage.getItem("auth_token")!= null){
+    if(localStorage.getItem("auth_token")!= null && localStorage.getItem("server_url")!= null){
         window.location.href = "./dashboard.html";
     }
     let loginButton=document.getElementById("loginButton");
@@ -119,6 +119,7 @@
                         "                    <p>La lettura del della Skill Card è stata eseguita con successo, attendere .... </p>" +
                         "                </div>");
                     let server_url=document.getElementById('server_url').value;
+                    localStorage.setItem("server_url",server_url);
                     console.log(server_url);
 
                     const options = {
