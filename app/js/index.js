@@ -1,5 +1,5 @@
-
-let scanButton=document.getElementById("scanButton")
+$( document ).ready(function() {
+let scanButton=document.getElementById("scanButton");
 scanButton.addEventListener("click", async () => {
     console.log("User clicked scan button");
     try {
@@ -14,9 +14,11 @@ scanButton.addEventListener("click", async () => {
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
             console.log(`> Serial Number: ${serialNumber}`);
             console.log(serialNumber.replace(":",""));
+            localStorage.setItem("user_skill_card_serial",serialNumber.replace(":",""))
 
         });
     } catch (error) {
         console.log("Argh! " + error);
     }
+});
 });
