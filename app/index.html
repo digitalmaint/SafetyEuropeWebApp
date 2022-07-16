@@ -102,9 +102,9 @@
                         data: {username:"admin", password:"p52gYEG2"}
                     };
 
-                    axios.request(options).then(function (response) {
-                        console.log(response.data);
-                        let token=response.data._id;
+                    axios.request(options).then(function (response_log) {
+                        console.log(response_log.data);
+                        let token=response_log.data.data._id;
                         console.log(token);
                         const options = {
                             method: 'GET',
