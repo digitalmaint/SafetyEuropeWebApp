@@ -483,13 +483,12 @@
                     "                        <div class=\"card-content\">\n" +
                     "                            <div class=\"card-body\">\n" +
                     "                                <h4 class=\"card-title\">"+maint.ShortDescr+"</h4>\n" +
-                    "                                <p class=\"card-text\">Descrizione Manutenzione: " +maint.Description +"</p>\n" +
-                    "                                <p class=\"card-text\">Asset: "+maint._CISubset_description+"</p>\n" +
-                    "                                <p class=\"card-text\">\n"+maint._CISubset_description+"</p>\n" +
+                    "                                <p class=\"card-text\"><h6>Descrizione Manutenzione:</h6> " +maint.Description +"</p>\n" +
+                    "                                <p class=\"card-text\"><h6>Asset:</h6> "+maint._CISubset_description+"</p>\n" +
                     "                            </div>\n" +
                     "                        </div>\n" +
-                    "                        <div class=\"card-footer d-flex justify-content-between\">\n" +
-                    "                            <span>Stato corrente: "+maint._ProcessStatus_description_translation+"</span>\n" +
+                    "                        <div class=\"card-footer d-flex justify-content-between\">" +
+                    "                            <h6>Stato corrente:</h6> "+maint._ProcessSatus_description_translation+"\n" +
                     "                            <div class=\"col-md-6 mb-4\">\n" +
                     "                                    <h6>Cambia Stato:</h6>\n" +
                     "                                    <fieldset class=\"form-group\">\n" +
@@ -499,16 +498,12 @@
                     "                                            <option>Thor Ragnarok</option>\n" +
                     "                                        </select>\n" +
                     "                                    </fieldset>\n" +
-                    "         <button  class=\"btn btn-warning\">Modifica Stato</button>"+
+                    "                                    <button  class=\"btn btn-warning\">Modifica Stato</button>"+
                     "                                </div>" +
                     "                                </div>" +
 
                     "                            <h3> Tasks : </h3>\n" +
                     "                            <ul class=\"list-group\" id='tasklist'>\n" +
-
-
-
-
                     "                            </ul>\n" +
 
                     "                    </div>"+
@@ -532,7 +527,7 @@
                         let tasklist=JSON.parse(response.data.data[0].Data);
                         tasklist.forEach(task=>{
                             $("#tasklist").append("<div class=\"form-check form-switch\">\n" +
-                                "                            <input class=\"form-check-input\" type=\"checkbox\" id=\"flexSwitchCheckChecked\" checked=\"\">\n" +
+                                "                            <input class=\"form-check-input\" type=\"checkbox\" id=\""+task.TaskDef+"\" >\n" +
                                 "                            <label class=\"form-check-label\" for=\"flexSwitchCheckChecked\">"+task._TaskDef_description +" </label>" +
                                 "                        </div> <hr>");
                         });
