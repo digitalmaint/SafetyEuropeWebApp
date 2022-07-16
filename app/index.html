@@ -41,6 +41,12 @@
                             <i class="bi bi-shield-lock"></i>
                         </div>
                     </div>
+                    <div class="form-group position-relative has-icon-left mb-4">
+                        <input type="text" id="server_url" class="form-control form-control-xl" placeholder="Server URL">
+                        <div class="form-control-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+                    </div>
                     <div class="form-check form-check-lg d-flex align-items-end">
                         <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label text-gray-600" for="flexCheckDefault">
@@ -82,8 +88,24 @@
                 if(localStorage.getItem("user_skill_card_serial")){
                     $("#alert").html("<div class=\"alert alert-info\">" +
                         "                    <h4 class=\"alert-heading\">Lettura NFC Effettuata Correttamente ... attendere</h4>" +
-                        "                    <p>La lettura del della Skill Card è stata eseguita con successo, attendere fino al completamento della procedura di autenticazione</p>" +
-                        "                </div>")
+                        "                    <p>La lettura del della Skill Card è stata eseguita con successo, attendere .... </p>" +
+                        "                </div>");
+                    let server_url=$('#server_url').innerText();
+                    console.log(server_url);
+
+                    const options = {
+                        method: 'POST',
+                        url: server_url+'/services/rest/v3/sessions',
+                        params: {scope: 'service', returnId: 'true'},
+                        headers: {'Content-Type': 'application/json'},
+                        data: '{\n	username: "admin",\n	password: "p52gYEG2"\n}'
+                    };
+
+                    axios.request(options).then(function (response) {
+                        console.log(response.data);
+                    }).catch(function (error) {
+                        console.error(error);
+                    });
 
                 }
                 else{
