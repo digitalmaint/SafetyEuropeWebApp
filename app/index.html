@@ -64,6 +64,9 @@
 
 </div>
 <script>
+    if(localStorage.getItem("auth_token")!= null){
+        window.location.href = "./dashboard.html";
+    }
     let loginButton=document.getElementById("loginButton");
     loginButton.addEventListener("click", async () => {
         const options = {
@@ -77,14 +80,18 @@
         axios.request(options).then(function (response) {
             localStorage.setItem("auth_token",response.data.data._id);
             localStorage.removeItem("user_skill_card_serial");
-            console.log("LOGGED");
+            c$("#alert").html("<div class=\"alert alert-success\" >\n" +
+                "                    <h4 class=\"alert-heading\">Login effettuato correttamente</h4>\n" +
+                "                </div>");
             console.log(response.data);
+            window.location.href = "./dashboard.html";
+
         }).catch(function (error) {
             $("#alert").html("<div class=\"alert alert-danger\" >\n" +
                 "                    <h4 class=\"alert-heading\">Errore nel Login</h4>\n" +
                 "                    <p>Si è verificato un errore durante la chiamata per ottenere il Token di Autenticazione</p>\n" +
                 "                    <p id=\"error\"></p>\n" +
-                "                </div>")
+                "                </div>");
             console.error(error);
         });
 
