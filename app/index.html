@@ -31,7 +31,7 @@
 
 
                     <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="text" class="form-control form-control-xl" placeholder="Username">
+                        <input type="text" id="username" class="form-control form-control-xl" placeholder="Username">
                         <div class="form-control-icon">
                             <i class="bi bi-person"></i>
                         </div>
@@ -48,12 +48,7 @@
                             <i class="bi bi-person"></i>
                         </div>
                     </div>
-                    <div class="form-check form-check-lg d-flex align-items-end">
-                        <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label text-gray-600" for="flexCheckDefault">
-                            Keep me logged in
-                        </label>
-                    </div>
+
                     <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5" >Log in</button>
                     <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5" id="scanButton" >Read Skill Card</button>
 
@@ -115,8 +110,15 @@
 
                         axios.request(options).then(function (response) {
                             console.log(response.data);
-                           let NFCUser=jsonPath(response.data,'$.data[?(@.Code=="'+localStorage.getItem("user_skill_card_serial")+'")]')[0]
-                            console.log(NFCUser.Username)
+                           let NFCUser=jsonPath(response.data,'$.data[?(@.Code=="'+localStorage.getItem("user_skill_card_serial")+'")]')[0];
+                            console.log(NFCUser.Username);
+                            document.getElementById("username").value=NFCUser.Username;
+                            $("#alert").html("<div class=\"alert alert-success\" >\n" +
+                                "                    <h4 class=\"alert-heading\">Lettura Skill Card avvenuta con successo!</h4>\n" +
+                                "                    <p>Il tuo utente della Skill card è stato caricato con successo, inserisci la password per completare il Login.</p>\n" +
+                                "                </div>")
+
+
                         }).catch(function (error) {
                             console.error(error);
                         });
