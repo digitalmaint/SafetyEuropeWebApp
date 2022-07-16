@@ -507,11 +507,11 @@
                     "                            </ul>\n" +
 
                     "                    </div>"+
-                    "         <button  class=\"btn btn-success\">Salva Modifiche</button>"
+                    "         <button  class=\"btn btn-success\" onclick='save()'>Salva Modifiche</button>"
 
                 );
 
-                if(main._ProcessStatus_description_tr!="Pianificato"){
+                if(maint._ProcessSatus_description_translation!="Pianificato"){
                     const options = {
                         method: 'GET',
                         url: localStorage.getItem("server_url")+'/services/rest/v3/classes/PrevMaintTasks/cards',
@@ -555,7 +555,9 @@
 
     }
 
-
+function save(){
+   console.log("TODO function SAVE")
+}
 </script>
 
 
