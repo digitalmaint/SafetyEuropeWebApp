@@ -21,7 +21,7 @@
         <div class="col-lg-5 col-12">
             <div id="auth-left">
                 <div class="auth-logo">
-                    <a href="index.html"><img src="../assets/images/logo/logo.png" height="100%" alt="Logo"></a>
+                    <a href="index.html"><img src="../assets/images/logo/logo.png" height="50%" alt="Logo"></a>
                 </div>
                 <h1 class="auth-title">Log in.</h1>
                 <div id="alert">
@@ -80,13 +80,14 @@
                 console.log(serialNumber.replaceAll(":",""));
                 localStorage.setItem("user_skill_card_serial",serialNumber.replaceAll(":",""));
                 if(localStorage.getItem("user_skill_card_serial")){
-                    $("#alert").append("<div class=\"alert alert-info\">" +
+                    $("#alert").html("<div class=\"alert alert-info\">" +
                         "                    <h4 class=\"alert-heading\">Lettura NFC Effettuata Correttamente ... attendere</h4>" +
                         "                    <p>La lettura del della Skill Card è stata eseguita con successo, attendere fino al completamento della procedura di autenticazione</p>" +
                         "                </div>")
+
                 }
                 else{
-                    $("#alert").append("<div class=\"alert alert-primary\" >\n" +
+                    $("#alert").html("<div class=\"alert alert-primary\" >\n" +
                         "                    <h4 class=\"alert-heading\">Errore nella Lettura NFC</h4>\n" +
                         "                    <p>Si è verificato un errore nella lettura della Skill Card</p>\n" +
                         "                    <p id=\"error\"></p>\n" +
