@@ -463,7 +463,7 @@
             method: 'GET',
             url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances',
             params: {
-                sort: '[{"property":"Sorting","direction":"DESC"}]',
+
                 include_tasklist: 'true'
             },
             headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
