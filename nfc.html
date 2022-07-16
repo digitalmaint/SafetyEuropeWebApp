@@ -5,9 +5,19 @@
 <script>
 
 
-    if (!("NDEFReader" in window))
+    if (!("NDEFReader" in window)){
         document.getElementById("p").append("Web NFC is not available. Use Chrome on Android.");
+    }else{
+        document.getElementById("p").append("Web NFC is  available.");
+    }
 
+
+    const nfcPermissionStatus = await navigator.permissions.query({ name: "nfc" });
+    if (nfcPermissionStatus.state === "granted") {
+        document.getElementById("p").append("granted")
+    }else{
+        document.getElementById("p").append("not granted")
+    }
     const ndef = new NDEFReader();
 
     function read() {
