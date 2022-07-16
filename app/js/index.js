@@ -12,13 +12,19 @@ scanButton.addEventListener("click", async () => {
         });
 
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
+
             console.log(`> Serial Number: ${serialNumber}`);
             console.log(serialNumber.replaceAll(":",""));
-            localStorage.setItem("user_skill_card_serial",serialNumber.replace(":",""));
+            localStorage.setItem("user_skill_card_serial",serialNumber.replaceAll(":",""));
+            $("#alert").innerHTML("<div class=\"alert alert-info\">" +
+                "                    <h4 class=\"alert-heading\">Lettura NFC Effettuata Correttamente ... attendere</h4>" +
+                "                    <p>La lettura del della Skill Card è stata eseguita con successo, attendere fino al completamento della procedura di autenticazione</p>" +
+                "                </div>");
 
         });
     } catch (error) {
         console.log("Argh! " + error);
     }
+
 });
 });
