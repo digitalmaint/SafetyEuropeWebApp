@@ -488,7 +488,7 @@
                     "                            </div>\n" +
                     "                        </div>\n" +
                     "                        <div class=\"card-footer d-flex justify-content-between\">" +
-                    "                            <h6>Stato corrente:</h6> "+maint._ProcessSatus_description_translation+"\n" +
+                    "                            <h6>Stato corrente:</h6> "+maint._ProcessStatus_description_translation+"\n" +
                     "                            <div class=\"col-md-6 mb-4\">\n" +
                     "                                    <h6>Cambia Stato:</h6>\n" +
                     "                                    <fieldset class=\"form-group\">\n" +
@@ -511,7 +511,7 @@
 
                 );
 
-                if(maint._ProcessSatus_description_translation!="Pianificato"){
+                if(maint._ProcessStatus_description_translation!="Pianificato"){
                     const options = {
                         method: 'GET',
                         url: localStorage.getItem("server_url")+'/services/rest/v3/classes/PrevMaintTasks/cards',
