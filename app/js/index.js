@@ -1,5 +1,5 @@
 
-let scanButton=document.getElementById("scanButton");
+let scanButton=document.getElementById("scanButton")
 scanButton.addEventListener("click", async () => {
     console.log("User clicked scan button");
     try {
