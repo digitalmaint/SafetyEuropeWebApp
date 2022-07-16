@@ -474,6 +474,7 @@
         console.log("GETTED MaINTS");
         console.log(response.data);
         response.data.data.forEach(maint => {
+            document.getElementById("spinner").style.visibility="hidden";
             $("#spinner").visibility=false;
             $("#maints").append("<div class=\"card\">\n" +
                 "                        <div class=\"card-content\">\n" +
