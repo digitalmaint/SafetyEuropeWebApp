@@ -463,8 +463,8 @@
         method: 'GET',
             url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances',
             params: {
-                sort: [{"property":"Sorting","direction":"DESC"}],
-                filter: {"attribute":{"and":[{"simple":{"attribute":"FlowStatus","operator":"equal","value":["1"]}},{"simple":{"attribute":"ProcessStatus","operator":"notequal","value":["277465"]}}]}},
+                sort: '[{"property":"Sorting","direction":"DESC"}]',
+                filter: '{"attribute":{"and":[{"simple":{"attribute":"FlowStatus","operator":"equal","value":["1"]}},{"simple":{"attribute":"ProcessStatus","operator":"notequal","value":["277465"]}}]}}',
                 include_tasklist: 'true'
             },
         headers: {
