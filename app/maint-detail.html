@@ -516,7 +516,7 @@
                     console.log(response.data);
                     let possible_states=response.data.data;
                     possible_states.forEach(state=>{
-                        $("#actions").append(" <button  class=\"btn btn-warning\" onclick='changeStatus(state._id)'>"+state._description_translation+"</button>");
+                        $("#actions").append(" <button  class=\"btn btn-warning\" onclick='changeStatus("+state._id+")'>"+state._description_translation+"</button>");
                     })
                 }).catch(function (error) {
                     console.error(error);
