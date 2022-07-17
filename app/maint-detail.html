@@ -516,7 +516,7 @@
                     console.log(response.data);
                     let possible_states=response.data.data;
                     possible_states.forEach(state=>{
-                        $("#actions").append(" <button  class=\"btn btn-warning\" onclick='changeStatus()'>"+state._description_translation+"</button>");
+                        $("#actions").append(" <button  class=\"btn btn-warning\" onclick='changeStatus(state._id)'>"+state._description_translation+"</button>");
                     })
                 }).catch(function (error) {
                     console.error(error);
@@ -566,10 +566,10 @@
 
 
     }
-function changeStatus(){
+function changeStatus(id){
         console.log("CHANGE STATUS");
-        let future_status_id = $("#possibleStates").children(":selected").attr("value");
-        console.log("lo stato futuro selezionato è "+future_status_id);
+
+        console.log("lo stato futuro selezionato è "+id);
 
 
 }
