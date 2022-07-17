@@ -490,16 +490,9 @@
                     "                        <div class=\"card-footer d-flex justify-content-between\">" +
                     "                            <h6>Stato corrente:</h6> "+maint._ProcessStatus_description_translation+"\n" +
                     "                        </div>" +
-                    "                        <div class=\"card-footer d-flex justify-content-between\">\n" +
-                    "                                    <h6>Cambia Stato:</h6>" +
-                    "                                    <fieldset class=\"form-group\">\n" +
-                    "                                        <select class=\"form-select\" id=\"possibleStates\">\n" +
-                    "                                        </select>\n" +
-                    "                                    </fieldset>" +
-                    "                         </div>" +
+                    "                        <div class=\"card-footer d-flex justify-content-between\" id='actions'>" +
 
-                    "                                    <button  class=\"btn btn-warning\">Modifica Stato</button>"+
-
+                    "                        </div>" +
 
                     "                            <h3> Tasks : </h3>\n" +
                     "                            <ul class=\"list-group\" id='tasklist'>\n" +
@@ -523,7 +516,7 @@
                     console.log(response.data);
                     let possible_states=response.data.data;
                     possible_states.forEach(state=>{
-                        $("#possibleStates").append("<option id='"+state._id+"'>"+state._description_translation+"</option>");
+                        $("#actions").append(" <button  class=\"btn btn-warning\" onclick='changeStatus()'>"+state._description_translation+"</button>");
                     })
                 }).catch(function (error) {
                     console.error(error);
@@ -573,7 +566,13 @@
 
 
     }
+function changeStatus(){
+        console.log("CHANGE STATUS");
+        let future_status_id = $("#possibleStates").children(":selected").attr("value");
+        console.log("lo stato futuro selezionato è "+future_status_id);
 
+
+}
 function save(){
    console.log("TODO function SAVE")
 }
