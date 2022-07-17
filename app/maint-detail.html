@@ -583,6 +583,26 @@ function changeStatus(id){
     axios.request(options).then(function (response) {
         response.data.data.Action=id;
         console.log(response.data.data);
+        let obj=response.data.data;
+        obj.Action=id;
+        console.log("JSON da inviare:");
+        console.log(obj);
+        const options = {
+            method: 'PUT',
+            url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id,
+            params: {include_tasklist: 'true'},
+            headers: {
+                'Content-Type': 'application/json',
+                'CMDBuild-Authorization': localStorage.getItem("auth_token")
+            },
+            data:obj
+        };
+        axios.request(options).then(function (response) {
+            console.log(response);
+
+        });
+
+
     });
 
 
