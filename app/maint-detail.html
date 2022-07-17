@@ -513,7 +513,7 @@
                     method: 'GET',
                     url: localStorage.getItem("server_url")+'/services/rest/v3/lookup_types/HEX50726f63657373202d20416374696f6e/values',
                     params: {
-                        filter: '%7B%22ecql%22%3A%7B%22id%22%3A%22c3moey44v7azgn4mknutt1h95qfa3nl54g4eivka1wmuz%22%2C%22context%22%3A%22%7B%5C%22client%5C%22%3A%7B%7D%2C%5C%22server%5C%22%3A%7B%5C%22Id%5C%22%3A%5C%22'+maint_id+'%5C%22%7D%7D%22%7D%7D'
+                        filter: {ecql:{id:"c3moey44v7azgn4mknutt1h95qfa3nl54g4eivka1wmuz",context:{client:{},server:{Id:maint_id}}}}
                     },
                     headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
                 };
