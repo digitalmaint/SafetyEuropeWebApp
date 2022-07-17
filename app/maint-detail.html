@@ -493,10 +493,7 @@
                     "                        <div class=\"card-footer d-flex justify-content-between\">\n" +
                     "                                    <h6>Cambia Stato:</h6>" +
                     "                                    <fieldset class=\"form-group\">\n" +
-                    "                                        <select class=\"form-select\" id=\"basicSelect\">\n" +
-                    "                                            <option></option>\n" +
-                    "                                            <option>Blade Runner</option>\n" +
-                    "                                            <option>Thor Ragnarok</option>\n" +
+                    "                                        <select class=\"form-select\" id=\"possibleStates\">\n" +
                     "                                        </select>\n" +
                     "                                    </fieldset>" +
                     "                         </div>" +
@@ -512,6 +509,26 @@
                     "         <button  class=\"btn btn-success\" onclick='save()'>Salva Modifiche</button>"
 
                 );
+                GetPossibleStates = {
+                    method: 'GET',
+                    url: localStorage.getItem("server_url")+'/services/rest/v3/lookup_types/HEX50726f63657373202d20416374696f6e/values',
+                    params: {
+                        filter: '%7B%22ecql%22%3A%7B%22id%22%3A%22c3moey44v7azgn4mknutt1h95qfa3nl54g4eivka1wmuz%22%2C%22context%22%3A%22%7B%5C%22client%5C%22%3A%7B%7D%2C%5C%22server%5C%22%3A%7B%5C%22Id%5C%22%3A%5C%22'+maint_id+'%5C%22%7D%7D%22%7D%7D'
+                    },
+                    headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
+                };
+
+                axios.request(GetPossibleStates).then(function (response) {
+                    console.log("Possible states:");
+                    console.log(response.data);
+                    let possible_states=response.data.data;
+                    possible_states.forEach(state=>{
+                        $("#possibleStates").append("<option id='"+state._id+"'>"+state._description_translation+"</option>");
+                    })
+                }).catch(function (error) {
+                    console.error(error);
+                });
+
 
                 if(maint._ProcessStatus_description_translation!="Pianificato"){
                     const options = {
