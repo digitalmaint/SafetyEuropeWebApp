@@ -588,6 +588,7 @@ function changeStatus(id){
         let obj=response.data.data;
         obj.Action=id;
         obj._activity=obj._tasklist[0]._id;
+        obj._advance= true;
         console.log("JSON da inviare:");
         console.log(obj);
         const options = {
