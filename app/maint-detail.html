@@ -567,11 +567,23 @@
 
     }
 function changeStatus(id){
-        console.log("CHANGE STATUS");
-        maint.Action=id;
-        console.log(maint);
+    console.log("CHANGE STATUS");
+    console.log("lo stato futuro selezionato è "+id);
+    const maint_id = urlParams.get('id');
+    const options = {
+        method: 'GET',
+        url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id,
+        params: {include_tasklist: 'true'},
+        headers: {
+            'Content-Type': 'application/json',
+            'CMDBuild-Authorization': localStorage.getItem("auth_token")
+        }
+    };
 
-        console.log("lo stato futuro selezionato è "+id);
+    axios.request(options).then(function (response) {
+        response.data.data.Action=id;
+        console.log(response.data.data);
+    });
 
 
 
