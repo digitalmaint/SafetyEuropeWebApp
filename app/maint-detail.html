@@ -569,6 +569,8 @@
 function changeStatus(id){
     console.log("CHANGE STATUS");
     console.log("lo stato futuro selezionato è "+id);
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
     const maint_id = urlParams.get('id');
     const options = {
         method: 'GET',
