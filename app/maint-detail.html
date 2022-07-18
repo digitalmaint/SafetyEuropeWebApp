@@ -131,6 +131,24 @@
                 console.log("SINGLE MAINTENANCE _ GETTED");
                 console.log(response.data);
                 let maint=response.data.data;
+                if(maint._ProcessStatus_description_translation=="Pianificato"){
+                    $("#maints").append("<div class=\"card\">\n" +
+                        "                        <div class=\"card-content\">\n" +
+                        "                            <div class=\"card-body\">\n" +
+                        "                                <h4 class=\"card-title\">"+maint.ShortDescr+"</h4>\n" +
+                        "                                <p class=\"card-text\"><h6>Descrizione Manutenzione:</h6> " +maint.Description +"</p>\n" +
+                        "                                <p class=\"card-text\"><h6>Asset:</h6> "+maint._CISubset_description+"</p>\n" +
+                        "                            </div>\n" +
+                        "                        </div>\n" +
+                        "                        <div class=\"card-footer d-flex justify-content-between\">" +
+                        "                            <h6>Stato corrente:</h6> "+maint._ProcessStatus_description_translation+"\n" +
+                        "                        </div>" +
+
+                        "                    </div>"
+                    );
+                }else{
+
+
                 $("#maints").append("<div class=\"card\">\n" +
                     "                        <div class=\"card-content\">\n" +
                     "                            <div class=\"card-body\">\n" +
@@ -205,7 +223,7 @@
                 }
 
 
-
+                }
             }).catch(function (error) {
                 console.error(error);
             });
