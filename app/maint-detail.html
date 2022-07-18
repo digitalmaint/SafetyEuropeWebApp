@@ -299,10 +299,10 @@ function changeStatus(id,act){
                     "                                        </select>\n" +
                     "                                    </fieldset>");
                 response.data.data.forEach(reason=>{
-                    $("#select-reason").append("<option>"+reason._description_translation+"</option>")
+                    $("#select-reason").append("<option id='"+reason._id+"'>"+reason._description_translation+"</option>")
 
                 });
-                $("#reasons").append(" <button  class=\"btn btn-warning\" onclick='suspend()'>Sospendi</button>");
+                $("#reasons").append(" <button  class=\"btn btn-warning\" onclick='suspend("+id+")'>Sospendi</button>");
             }).catch(function (error) {
                 console.error(error);
             });
@@ -323,7 +323,31 @@ function changeStatus(id,act){
 
 
 }
-    function suspend(){
+    function suspend(id){
+        // prendo la manutenzione corrente
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const maint_id = urlParams.get('id');
+        const opt = {
+            method: 'GET',
+            url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id,
+            params: {include_tasklist: 'true'},
+            headers: {
+                'Content-Type': 'application/json',
+                'CMDBuild-Authorization': localStorage.getItem("auth_token")
+            }
+        };
+        axios.request(opt).then(function (response) {
+
+            response.data.data.Action=id;
+            console.log(response.data.data);
+            let obj=response.data.data;
+            obj.Action=id;
+            obj._activity=obj._tasklist[0]._id;
+            obj._advance= true;
+
+
+
         console.log("JSON da inviare:");
         console.log(obj);
         const options = {
@@ -339,6 +363,7 @@ function changeStatus(id,act){
         axios.request(options).then(function (response) {
             console.log(response);
 
+        });
         });
     }
 function save(){
