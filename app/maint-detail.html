@@ -518,7 +518,7 @@
                     console.log(response.data);
                     let possible_states=response.data.data;
                     possible_states.forEach(state=>{
-                        $("#actions").append(" <button  class=\"btn btn-warning\" onclick='changeStatus("+state._id+","+state._description_translation+")'>"+state._description_translation+"</button>");
+                        $("#actions").append(" <button  class=\"btn btn-warning\" onclick='changeStatus("+state._id+",\""+state._description_translation+"\")'>"+state._description_translation+"</button>");
                     })
                 }).catch(function (error) {
                     console.error(error);
@@ -612,7 +612,7 @@ function changeStatus(id,act){
 
         });
     }
-    if(act=="Sospendi"){
+    if(act==="Sospendi"){
         console.log("CHANGE STATUS-SOSPENDI");
         console.log("lo stato futuro selezionato è "+id);
         const queryString = window.location.search;
