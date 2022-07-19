@@ -12,6 +12,7 @@
     <link rel="shortcut icon" href="../assets/images/logo/logo.png" type="image/png">
 
     <link rel="stylesheet" href="../assets/css/shared/iconly.css">
+    <link rel="stylesheet" href="assets/css/pages/fontawesome.css">
     <script src="js/axios.js"></script>
     <script src="js/jquery.js"></script>
 
@@ -130,6 +131,7 @@
                         "                        <div class=\"card-content\">\n" +
                         "                            <div class=\"card-body\">\n" +
                         "                                <h4 class=\"card-title\">"+maint.ShortDescr+"</h4>\n" +
+
                         "                                <p class=\"card-text\"><h6>Descrizione Manutenzione:</h6> " +maint.Description +"</p>\n" +
                         "                                <p class=\"card-text\"><h6>Asset:</h6> "+maint._CISubset_description+"</p>\n" +
                         "                            </div>\n" +
@@ -329,13 +331,87 @@ function changeStatus(id,act){
     }
 
     if(act=="Chiudi"){
+        // prendo i possibili MaintProcess - Outcome
+        const options = {
+            method: 'GET',
+            url: localStorage.getItem("server_url")+'/services/rest/v3/lookup_types/MaintProcess%20-%20Outcome/values',
+            headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
+        };
 
-    }
+        axios.request(options).then(function (response) {
+            console.log("Possibili MaintProcess - OutCome");
+            console.log(response.data);
+            axios.request(get_suspension_reason).then(function (response) {
+                $("#reasons").append("<fieldset class=\"form-group\">\n" +
+                    "                                        <select class=\"form-select\" id=\"select-reason\">\n" +
+                    "                                        </select>\n" +
+                    "                                    </fieldset>" +
+                    "<div class=\"form-group\">\n" +
+                    "                            <label for=\"basicInput\">Data fine esecuzione</label>\n" +
+                    "                            <input type=\"datetime-local\" class=\"form-control\" id=\"enddate\" >\n" +
+                    "                        </div>");
+                response.data.data.forEach(outcome=>{
+                    $("#select-reason").append("<option id='"+outcome._id+"'>"+outcome._description_translation+"</option>")
+
+                });
+                $("#reasons").append(" <button  class=\"btn btn-warning\" onclick='close("+id+")'>Chiudi Intervento</button>");
+
+            }).catch(function (error) {
+            console.error(error);
+        });
+
+    };
 
 
 
 
 }
+
+}
+    function close(id,date){
+        console.log("chiudo la manutenzione");
+        // prendo la manutenzione corrente
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const maint_id = urlParams.get('id');
+        const opt = {
+            method: 'GET',
+            url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id,
+            params: {include_tasklist: 'true'},
+            headers: {
+                'Content-Type': 'application/json',
+                'CMDBuild-Authorization': localStorage.getItem("auth_token")
+            }
+        };
+        axios.request(opt).then(function (response) {
+
+            response.data.data.Action=id;
+            console.log(response.data.data);
+            let obj=response.data.data;
+            obj.Action=id;
+            obj._activity=obj._tasklist[0]._id;
+            obj._advance= true;
+            obj.Outcome=id;
+            obj.ExecEndDate=$("#enddate").val();
+            console.log("JSON da inviare:");
+            console.log(obj);
+            const options = {
+                method: 'PUT',
+                url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id,
+                params: {include_tasklist: 'true'},
+                headers: {
+                    'Content-Type': 'application/json',
+                    'CMDBuild-Authorization': localStorage.getItem("auth_token")
+                },
+                data:obj
+            };
+            axios.request(options).then(function (response) {
+                console.log(response);
+                location.reload();
+            });
+        });
+
+    }
     function suspend(id){
         // prendo la manutenzione corrente
         const queryString = window.location.search;
