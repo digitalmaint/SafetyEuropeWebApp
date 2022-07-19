@@ -343,7 +343,8 @@ function changeStatus(id,act){
             console.log(response.data);
 
                 $("#reasons").append("<fieldset class=\"form-group\">\n" +
-                    "                                        <select class=\"form-select\" id=\"select-reason\">\n" +
+                    "                            <label for=\"basicInput\">Esito Manutenzione </label>\n" +
+                    "                                        <select class=\"form-select\" id=\"select-outcome\">\n" +
                     "                                        </select>\n" +
                     "                                    </fieldset>" +
                     "<div class=\"form-group\">\n" +
@@ -391,7 +392,7 @@ function changeStatus(id,act){
             obj.Action=id;
             obj._activity=obj._tasklist[0]._id;
             obj._advance= true;
-            obj.Outcome=id;
+            obj.Outcome=$("#select-outcome").children(":selected").attr("id");
             obj.ExecEndDate=$("#enddate").val();
             console.log("JSON da inviare:");
             console.log(obj);
