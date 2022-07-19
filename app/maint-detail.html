@@ -352,7 +352,7 @@ function changeStatus(id,act){
                     "                            <input type=\"datetime-local\" class=\"form-control\" id=\"enddate\" >\n" +
                     "                        </div>");
                 response.data.data.forEach(outcome=>{
-                    $("#select-reason").append("<option id='"+outcome._id+"'>"+outcome._description_translation+"</option>")
+                    $("#select-outcome").append("<option id='"+outcome._id+"'>"+outcome._description_translation+"</option>")
 
                 });
                 $("#reasons").append(" <button  class=\"btn btn-warning\" onclick='close("+id+")'>Chiudi Intervento</button>");
