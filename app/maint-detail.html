@@ -341,7 +341,7 @@ function changeStatus(id,act){
         axios.request(options).then(function (response) {
             console.log("Possibili MaintProcess - OutCome");
             console.log(response.data);
-            axios.request(get_suspension_reason).then(function (response) {
+
                 $("#reasons").append("<fieldset class=\"form-group\">\n" +
                     "                                        <select class=\"form-select\" id=\"select-reason\">\n" +
                     "                                        </select>\n" +
@@ -360,7 +360,7 @@ function changeStatus(id,act){
             console.error(error);
         });
 
-    });
+    }
 
 
 
