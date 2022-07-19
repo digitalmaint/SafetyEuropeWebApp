@@ -234,7 +234,7 @@
 
 
     }
-function changeStatus(id,act){
+    function changeStatus(id,act){
     if(act=="Inizia esecuzione" || act==="Riprendi esecuzione"){
         console.log("CHANGE STATUS");
         console.log("lo stato futuro selezionato è "+id);
@@ -355,7 +355,7 @@ function changeStatus(id,act){
                     $("#select-outcome").append("<option id='"+outcome._id+"'>"+outcome._description_translation+"</option>")
 
                 });
-                $("#reasons").append(" <button  class=\"btn btn-warning\" onclick='close("+id+")'>Chiudi Intervento</button>");
+                $("#reasons").append(" <button  class=\"btn btn-warning\" onclick='Close("+id+")'>Chiudi Intervento</button>");
 
             }).catch(function (error) {
             console.error(error);
@@ -369,7 +369,7 @@ function changeStatus(id,act){
 
 
 }
-    function close(id){
+    function Close(id){
         console.log("chiudo la manutenzione");
         // prendo la manutenzione corrente
         const queryString = window.location.search;
