@@ -501,6 +501,7 @@ function save(){
             }
             else{
                 //KO
+                console.log("NON è checked");
                 task.Outcome=possbile_outcome.data.find(outcome=>outcome.code="Negative").id;
             }
             task.Modified=true
