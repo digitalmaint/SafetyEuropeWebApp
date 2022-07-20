@@ -496,11 +496,11 @@ function save(){
             console.log(task.TaskDef);
             if($("#"+task.TaskDef).checked){
                 //Ok
-                task.Outcome=possbile_outcome.find(outcome=>outcome.code="Positive").id;
+                task.Outcome=possbile_outcome.data.find(outcome=>outcome.code="Positive").id;
             }
             else{
                 //KO
-                task.Outcome=possbile_outcome.find(outcome=>outcome.code="Negative").id;
+                task.Outcome=possbile_outcome.data.find(outcome=>outcome.code="Negative").id;
             }
             task.Modified=true
         });
