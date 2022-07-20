@@ -460,6 +460,10 @@
 
 function save(){
    console.log("TODO function SAVE");
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const maint_id = urlParams.get('id');
+
     const get_possible_task_outcome = {
         method: 'GET',
         url: localStorage.getItem("server_url")+'/services/rest/v3/lookup_types/MaintProcess%20-%20Outcome/values',
