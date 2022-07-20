@@ -496,6 +496,7 @@ function save(){
             console.log(task.TaskDef);
             if($("#"+task.TaskDef).checked){
                 //Ok
+                console.log("è checked");
                 task.Outcome=possbile_outcome.data.find(outcome=>outcome.code="Positive").id;
             }
             else{
@@ -510,9 +511,9 @@ function save(){
 
         const put_tasklist = {
             method: 'PUT',
-            url: 'http://master-safety.safetyeurope.eu:8080/openmaint/services/rest/v3/classes/PrevMaintTasks/cards/1043214',
+            url: localStorage.getItem("server_url")+'/services/rest/v3/classes/PrevMaintTasks/cards/1043214',
             headers: {
-                'CMDBuild-Authorization': 'e18zhpiln9stunf9o3qtbhep',
+                'CMDBuild-Authorization': localStorage.getItem("auth_token"),
                 'Content-Type': 'application/json'
             },
             data: json_to_send
