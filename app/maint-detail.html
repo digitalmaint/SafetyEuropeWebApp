@@ -494,7 +494,7 @@ function save(){
         // per ogni task
         tasklist.forEach(task=>{
             console.log(task.TaskDef);
-            if(document.querySelector("#\\33 "+task.TaskDef).checked){
+            if($("#"+task.TaskDef).checked){
                 //Ok
                 task.Outcome=possbile_outcome.find(outcome=>outcome.code="Positive").id;
             }
