@@ -512,7 +512,10 @@ function save(){
 
         const put_tasklist = {
             method: 'PUT',
-            url: localStorage.getItem("server_url")+'/services/rest/v3/classes/PrevMaintTasks/cards/1043214',
+            url: localStorage.getItem("server_url")+'/services/rest/v3/classes/PrevMaintTasks/cards',
+            params: {
+                filter: '{"attribute":{"simple":{"attribute":"MaintProcess","operator":"equal","value":'+maint_id+'}}}'
+            },
             headers: {
                 'CMDBuild-Authorization': localStorage.getItem("auth_token"),
                 'Content-Type': 'application/json'
