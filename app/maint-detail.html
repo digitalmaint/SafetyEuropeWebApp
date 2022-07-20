@@ -493,6 +493,7 @@ function save(){
         let tasklist=JSON.parse(response.data.data[0].Data);
         // per ogni task
         tasklist.forEach(task=>{
+            console.log(document.querySelector("#\\33 "+task.TaskDef));
             if(document.querySelector("#\\33 "+task.TaskDef).checked){
                 //Ok
                 task.Outcome=possbile_outcome.find(outcome=>outcome.code="Positive").id;
