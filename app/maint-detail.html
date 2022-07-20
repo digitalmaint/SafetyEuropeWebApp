@@ -494,7 +494,7 @@ function save(){
         // per ogni task
         tasklist.forEach(task=>{
             console.log(task.TaskDef);
-            if($("#"+task.TaskDef).checked){
+            if($("#"+task.TaskDef).is(':checked')){
                 //Ok
                 console.log("è checked");
                 task.Outcome=possbile_outcome.data.find(outcome=>outcome.code="Positive").id;
@@ -508,7 +508,7 @@ function save(){
         });
         tasklist_stringified=JSON.stringify(tasklist);
         json_to_send=response.data;
-        json_to_send.data[0].Data=tasklist_stringified;
+        json_to_send.data.Data=tasklist_stringified;
 
         const put_tasklist = {
             method: 'PUT',
@@ -517,7 +517,7 @@ function save(){
                 'CMDBuild-Authorization': localStorage.getItem("auth_token"),
                 'Content-Type': 'application/json'
             },
-            data: json_to_send
+            data: json_to_send.data
         };
         console.log(json_to_send);
         axios.request(put_tasklist).then(function (response) {
