@@ -512,7 +512,7 @@ function save(){
 
         const put_tasklist = {
             method: 'PUT',
-            url: localStorage.getItem("server_url")+'/services/rest/v3/classes/PrevMaintTasks/cards',
+            url: localStorage.getItem("server_url")+'/services/rest/v3/classes/PrevMaintTasks/cards/'+json_to_send.data[0]._id,
             params: {
                 filter: '{"attribute":{"simple":{"attribute":"MaintProcess","operator":"equal","value":'+maint_id+'}}}'
             },
