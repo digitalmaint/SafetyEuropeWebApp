@@ -520,7 +520,7 @@ function save(){
                 'CMDBuild-Authorization': localStorage.getItem("auth_token"),
                 'Content-Type': 'application/json'
             },
-            data: json_to_send.data
+            data: json_to_send
         };
         console.log(json_to_send);
         axios.request(put_tasklist).then(function (response) {
