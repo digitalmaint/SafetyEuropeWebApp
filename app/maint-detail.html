@@ -494,14 +494,14 @@ function save(){
                 if($("#"+task.TaskDef).is(':checked')){
                     //Ok
                     console.log("è checked");
-                    console.log(possbile_outcome.data.find(outcome=>outcome.code="Positive").id);
-                    task.Outcome=possbile_outcome.data.find(outcome=>outcome.code="Positive").id;
+                    console.log(possbile_outcome.data.find(outcome=>outcome.description="Positive").id);
+                    task.Outcome=possbile_outcome.data.find(outcome=>outcome.description="Positive").id;
                 }
                 else{
                     //KO
                     console.log("NON è checked");
-                    console.log(possbile_outcome.data.find(outcome=>outcome.code="Negative").id);
-                    task.Outcome=possbile_outcome.data.find(outcome=>outcome.code="Negative").id;
+                    console.log(possbile_outcome.data.find(outcome=>outcome.description="Negative").id);
+                    task.Outcome=possbile_outcome.data.find(outcome=>outcome.description="Negative").id;
                 }
                 task.Modified=true;
                 console.log(task);
