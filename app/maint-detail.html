@@ -508,7 +508,8 @@ function save(){
         });
         tasklist_stringified=JSON.stringify(tasklist);
         json_to_send=response.data;
-        json_to_send.data.Data=tasklist_stringified;
+        json_to_send.data[0].Data=tasklist_stringified;
+        json_to_send.data[0]._tenant ="";
         delete json_to_send.data[0]._id;
 
         const put_tasklist = {
