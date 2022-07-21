@@ -472,6 +472,7 @@ function save(){
 
     axios.request(get_possible_task_outcome).then(function (response) {
         possbile_outcome=response.data;
+        console.log(possbile_outcome);
         // vado a prendermi i tasks
         const options = {
             method: 'GET',
