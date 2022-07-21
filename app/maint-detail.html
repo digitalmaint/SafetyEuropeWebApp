@@ -511,11 +511,12 @@ function save(){
             json_to_send=response.data;
             json_to_send.data[0].Data=tasklist_stringified;
             json_to_send.data[0]._tenant ="";
+            id_tasklist=json_to_send.data[0]._id;
             delete json_to_send.data[0]._id;
 
             const put_tasklist = {
                 method: 'PUT',
-                url: localStorage.getItem("server_url")+'/services/rest/v3/classes/PrevMaintTasks/cards/'+json_to_send.data[0]._id,
+                url: localStorage.getItem("server_url")+'/services/rest/v3/classes/PrevMaintTasks/cards/'+id_tasklist,
                 params: {
                     filter: '{"attribute":{"simple":{"attribute":"MaintProcess","operator":"equal","value":'+maint_id+'}}}'
                 },
