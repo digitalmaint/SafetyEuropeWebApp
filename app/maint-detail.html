@@ -518,7 +518,8 @@ function save(){
                 method: 'PUT',
                 url: localStorage.getItem("server_url")+'/services/rest/v3/classes/PrevMaintTasks/cards/'+id_tasklist,
                 params: {
-                    filter: '{"attribute":{"simple":{"attribute":"MaintProcess","operator":"equal","value":'+maint_id+'}}}'
+                    filter: '{"attribute":{"simple":{"attribute":"MaintProcess","operator":"equal","value":'+maint_id+'}}}',
+                    dc:1658441915822
                 },
                 headers: {
                     'CMDBuild-Authorization': localStorage.getItem("auth_token"),
