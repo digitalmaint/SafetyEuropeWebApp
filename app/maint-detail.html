@@ -469,75 +469,76 @@ function save(){
         url: localStorage.getItem("server_url")+'/services/rest/v3/lookup_types/MaintProcess%20-%20Outcome/values',
         headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
     };
-    var possible_outcome;
-    axios.request(get_possible_task_outcome).then(function (response,possible_outcome) {
-        possible_outcome=response.data;
-    }).catch(function (error) {
-        console.error(error);
-    });
 
-   // vado a prendermi i tasks
-    const options = {
-        method: 'GET',
-        url: localStorage.getItem("server_url")+'/services/rest/v3/classes/PrevMaintTasks/cards',
-        params: {
-            filter: '{"attribute":{"simple":{"attribute":"MaintProcess","operator":"equal","value":'+maint_id+'}}}'
-        },
-        headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
-    };
-
-
-    axios.request(options).then(function (response,possible_outcome) {
-        console.log("OTTENGO LA TASKLIST");
-        console.log(response.data);
-        let tasklista=JSON.parse(response.data.data[0].Data);
-        // per ogni task
-        tasklista.forEach(task=>{
-            console.log(task.TaskDef);
-            if($("#"+task.TaskDef).is(':checked')){
-                //Ok
-                console.log("è checked");
-                task.Outcome=possible_outcome.data.find(outcome=>outcome.code="Positive").id;
-            }
-            else{
-                //KO
-                console.log("NON è checked");
-                task.Outcome=possible_outcome.data.find(outcome=>outcome.code="Negative").id;
-            }
-            task.Modified=true;
-            console.log(task);
-        });
-        console.log(tasklista);
-        tasklist_stringified=JSON.stringify(tasklista);
-        json_to_send=response.data;
-        json_to_send.data[0].Data=tasklist_stringified;
-        json_to_send.data[0]._tenant ="";
-        delete json_to_send.data[0]._id;
-
-        const put_tasklist = {
-            method: 'PUT',
-            url: localStorage.getItem("server_url")+'/services/rest/v3/classes/PrevMaintTasks/cards/'+json_to_send.data[0]._id,
+    axios.request(get_possible_task_outcome).then(function (response) {
+        possbile_outcome=response.data;
+        // vado a prendermi i tasks
+        const options = {
+            method: 'GET',
+            url: localStorage.getItem("server_url")+'/services/rest/v3/classes/PrevMaintTasks/cards',
             params: {
                 filter: '{"attribute":{"simple":{"attribute":"MaintProcess","operator":"equal","value":'+maint_id+'}}}'
             },
-            headers: {
-                'CMDBuild-Authorization': localStorage.getItem("auth_token"),
-                'Content-Type': 'application/json'
-            },
-            data: json_to_send.data[0]
+            headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
         };
-        console.log(json_to_send);
-        axios.request(put_tasklist).then(function (response) {
-            console.log("invio la tasklist e mi risponde:");
+
+
+        axios.request(options).then(function (response) {
+            console.log("OTTENGO LA TASKLIST");
             console.log(response.data);
+            let tasklista=JSON.parse(response.data.data[0].Data);
+            // per ogni task
+            tasklista.forEach(task=>{
+                console.log(task.TaskDef);
+                if($("#"+task.TaskDef).is(':checked')){
+                    //Ok
+                    console.log("è checked");
+                    task.Outcome=possbile_outcome.data.find(outcome=>outcome.code="Positive").id;
+                }
+                else{
+                    //KO
+                    console.log("NON è checked");
+                    task.Outcome=possbile_outcome.data.find(outcome=>outcome.code="Negative").id;
+                }
+                task.Modified=true;
+                console.log(task);
+            });
+            console.log(tasklista);
+            tasklist_stringified=JSON.stringify(tasklista);
+            json_to_send=response.data;
+            json_to_send.data[0].Data=tasklist_stringified;
+            json_to_send.data[0]._tenant ="";
+            delete json_to_send.data[0]._id;
+
+            const put_tasklist = {
+                method: 'PUT',
+                url: localStorage.getItem("server_url")+'/services/rest/v3/classes/PrevMaintTasks/cards/'+json_to_send.data[0]._id,
+                params: {
+                    filter: '{"attribute":{"simple":{"attribute":"MaintProcess","operator":"equal","value":'+maint_id+'}}}'
+                },
+                headers: {
+                    'CMDBuild-Authorization': localStorage.getItem("auth_token"),
+                    'Content-Type': 'application/json'
+                },
+                data: json_to_send.data[0]
+            };
+            console.log(json_to_send);
+            axios.request(put_tasklist).then(function (response) {
+                console.log("invio la tasklist e mi risponde:");
+                console.log(response.data);
+            }).catch(function (error) {
+                console.error(error);
+            });
+
+
         }).catch(function (error) {
             console.error(error);
         });
-
-
     }).catch(function (error) {
         console.error(error);
     });
+
+
 
 }
 </script>
