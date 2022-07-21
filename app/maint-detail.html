@@ -469,9 +469,9 @@ function save(){
         url: localStorage.getItem("server_url")+'/services/rest/v3/lookup_types/MaintProcess%20-%20Outcome/values',
         headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
     };
-
-    axios.request(get_possible_task_outcome).then(function (response) {
-        possbile_outcome=response.data;
+    var possible_outcome;
+    axios.request(get_possible_task_outcome).then(function (response,possible_outcome) {
+        possible_outcome=response.data;
     }).catch(function (error) {
         console.error(error);
     });
@@ -487,7 +487,7 @@ function save(){
     };
 
 
-    axios.request(options).then(function (response) {
+    axios.request(options).then(function (response,possible_outcome) {
         console.log("OTTENGO LA TASKLIST");
         console.log(response.data);
         let tasklista=JSON.parse(response.data.data[0].Data);
@@ -497,12 +497,12 @@ function save(){
             if($("#"+task.TaskDef).is(':checked')){
                 //Ok
                 console.log("è checked");
-                task.Outcome=possbile_outcome.data.find(outcome=>outcome.code="Positive").id;
+                task.Outcome=possible_outcome.data.find(outcome=>outcome.code="Positive").id;
             }
             else{
                 //KO
                 console.log("NON è checked");
-                task.Outcome=possbile_outcome.data.find(outcome=>outcome.code="Negative").id;
+                task.Outcome=possible_outcome.data.find(outcome=>outcome.code="Negative").id;
             }
             task.Modified=true;
             console.log(task);
