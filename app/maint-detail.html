@@ -490,9 +490,9 @@ function save(){
     axios.request(options).then(function (response) {
         console.log("OTTENGO LA TASKLIST");
         console.log(response.data);
-        let tasklist=JSON.parse(response.data.data[0].Data);
+        let tasklista=JSON.parse(response.data.data[0].Data);
         // per ogni task
-        tasklist.forEach(task=>{
+        tasklista.forEach(task=>{
             console.log(task.TaskDef);
             if($("#"+task.TaskDef).is(':checked')){
                 //Ok
@@ -506,7 +506,7 @@ function save(){
             }
             task.Modified=true
         });
-        tasklist_stringified=JSON.stringify(tasklist);
+        tasklist_stringified=JSON.stringify(tasklista);
         json_to_send=response.data;
         json_to_send.data[0].Data=tasklist_stringified;
         json_to_send.data[0]._tenant ="";
