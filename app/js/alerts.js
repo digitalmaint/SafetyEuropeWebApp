@@ -8,13 +8,13 @@ function alert(type,message){
             error.response.data.messages[0].message+
             "                    </p>\n" +
             error.response.request.responseURL+
-            "                </div>")
+            "                </div>");
     }
     else{
         $("#alert").html("<div class=\"alert alert-"+type+"\" >\n" +
             "                    <h4 class=\"alert-heading\">Informazioni</h4>\n" +
             "                    <p>"+message+"</p>\n" +
-            "                </div>")
+            "                </div>");
     }
 
 }
