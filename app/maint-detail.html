@@ -17,7 +17,7 @@
     <script src="js/jquery.js"></script>
     <script src="js/catch_errors.js"></script>
     <script src="js/jsonpath.js"></script>
-
+    <script src="js/alerts.js"></script>
 </head>
 
 <body>
@@ -43,7 +43,31 @@
                 </div>
             </div>
             <div class="sidebar-menu" id="sidebar-menu">
+                <ul class="menu">
+                    <li class="sidebar-title">Menu</li>
 
+                    <li class="sidebar-item  has-sub">
+                        <a href="dashboard.html" class='sidebar-link'>
+                            <i class="bi bi-stack"></i>
+                            <span>Manutenzioni Preventive</span>
+                        </a>
+                        <ul class="submenu ">
+                            <li class="submenu-item ">
+                                <a href="dashboard.html">Manutenzioni</a>
+                            </li>
+                            <li class="submenu-item ">
+                                <a href="component-badge.html">Rapportini</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="sidebar-item  ">
+                        <a onclick="localStorage.removeItem('auth_token');location.reload();" class='sidebar-link'>
+                            <i class="bi bi-door-closed-fill"></i>
+                            <span>Log Out</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -80,8 +104,6 @@
 </div>
 <script src="../assets/js/app.js"></script>
 <script src="../assets/js/pages/dashboard.js"></script>
-<script src="js/alerts.js"></script>
-<script src="js/common.js"></script>
 <script>
     if(localStorage.getItem("auth_token")== null || localStorage.getItem("server_url")== null){
         window.location.href = "./index.html";
