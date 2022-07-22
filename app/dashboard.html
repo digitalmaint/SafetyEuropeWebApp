@@ -228,6 +228,7 @@
     });
     function show_filtered(status){
         document.getElementById("spinner").style.visibility = "visible";
+        $("#maints").html("");
         const options = {
             method: 'GET',
             url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances',
