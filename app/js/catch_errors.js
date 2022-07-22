@@ -7,7 +7,7 @@ function catch_errors(error){
         error.response.data.messages[0].message+
         "                    </p>\n" +
         error.response.request.responseURL+
-        "                </div>")
+        "                </div>");
     if(error.response.status===401){
         localStorage.removeItem('auth_token');
         location.reload();
