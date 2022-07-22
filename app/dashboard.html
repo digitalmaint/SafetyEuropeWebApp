@@ -99,7 +99,7 @@
                         <a class="nav-link" id="accettazione-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" onclick="show_filtered('Accettazione')">Accettazione</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link " id="esecuzione-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Pianificato')">Esecuzione</a>
+                        <a class="nav-link " id="esecuzione-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Esecuzione')">Esecuzione</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link " id="sospensione-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Sospensione')">Sospensione</a>
@@ -120,6 +120,8 @@
                 <div class="col-12 col-md-6 col-lg-6" >
                     <img src="../assets/images/svg-loaders/grid.svg" class="me-4" style="width: 3rem" alt="audio" id="spinner">
                 </div>
+            </section>
+            <section class="row">
                 <div class="col-12 col-md-6 col-lg-6" id="maints">
 
 
@@ -224,7 +226,7 @@
 
     });
     function show_filtered(status){
-        $("#spinner").visibility=true;
+        ocument.getElementById("spinner").style.visibility = "visibile";
         const options = {
             method: 'GET',
             url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances',
@@ -242,7 +244,7 @@
             response.data.data.forEach(maint => {
                 if (maint._ProcessStatus_description_translation === status || status === "all") {
                     document.getElementById("spinner").style.visibility = "hidden";
-                    $("#spinner").visibility = false;
+
                     $("#maints").append("<div class=\"card\">\n" +
                         "                        <div class=\"card-content\">\n" +
                         "                            <div class=\"card-body\">\n" +
