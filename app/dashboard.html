@@ -93,25 +93,25 @@
                 </div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Pianificato</a>
+                        <a class="nav-link" id="pianificato-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false" onclick="show_filtered('Pianificato')">Pianificato</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Accettazione</a>
+                        <a class="nav-link" id="accettazione-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" onclick="show_filtered('Accettazione')">Accettazione</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link " id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Esecuzione</a>
+                        <a class="nav-link " id="esecuzione-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Pianificato')">Esecuzione</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link " id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Sospensione</a>
+                        <a class="nav-link " id="sospensione-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Sospensione')">Sospensione</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link " id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Completato</a>
+                        <a class="nav-link " id="completato-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Completato')">Completato</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link " id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Annullato</a>
+                        <a class="nav-link " id="annullato-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Annullato')">Annullato</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Tutti</a>
+                        <a class="nav-link active" id="all-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('all')">Tutti</a>
                     </li>
                 </ul>
             </section>
@@ -220,6 +220,46 @@
         }
 
     });
+    function show_filtered(status){
+        $("#spinner").visibility=true;
+        const options = {
+            method: 'GET',
+            url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances',
+            params: {
+
+                include_tasklist: 'true'
+            },
+            headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
+        };
+
+        axios.request(options).then(function (response) {
+            console.log("GETTED MaINTS");
+            console.log(response.data);
+            response.data.data.forEach(maint => {
+                if(maint._ProcessStatus_description_translation===status || status==="all"){
+                document.getElementById("spinner").style.visibility="hidden";
+                $("#spinner").visibility=false;
+                $("#maints").append("<div class=\"card\">\n" +
+                    "                        <div class=\"card-content\">\n" +
+                    "                            <div class=\"card-body\">\n" +
+                    "                                <h4 class=\"card-title\">"+maint.ShortDescr+"</h4>\n" +
+                    "                                <p class=\"card-text\">\n" +maint.Description +"</p>\n" +
+                    "                                <p class=\"card-text\">\n" +maint._CISubset_description+"</p>\n" +
+                    "                            </div>\n" +
+                    "                        </div>\n" +
+                    "                        <div class=\"card-footer d-flex justify-content-between\">\n" +
+                    "                            <span>Stato: "+maint._ProcessStatus_description_translation+"</span>\n" +
+                    "                            <button class=\"btn btn-light-primary\" onclick='window.location.href =\"maint-detail.html?id="+maint._id+"\"' >Dettagli</button>\n" +
+                    "                        </div>\n" +
+                    "                    </div>");
+                }
+            }).catch(function (error) {
+                console.error(error);
+                catch_errors(error);
+            });
+
+        });
+    }
 
 
 </script>
