@@ -234,6 +234,7 @@
 
         axios.request(options).then(function (response) {
             console.log("GETTED MaINTS");
+            $("#maints").html("");
             console.log(response.data);
             response.data.data.forEach(maint => {
                 if (maint._ProcessStatus_description_translation === status || status === "all") {
