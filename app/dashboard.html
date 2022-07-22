@@ -236,29 +236,30 @@
             console.log("GETTED MaINTS");
             console.log(response.data);
             response.data.data.forEach(maint => {
-                if(maint._ProcessStatus_description_translation===status || status==="all"){
-                document.getElementById("spinner").style.visibility="hidden";
-                $("#spinner").visibility=false;
-                $("#maints").append("<div class=\"card\">\n" +
-                    "                        <div class=\"card-content\">\n" +
-                    "                            <div class=\"card-body\">\n" +
-                    "                                <h4 class=\"card-title\">"+maint.ShortDescr+"</h4>\n" +
-                    "                                <p class=\"card-text\">\n" +maint.Description +"</p>\n" +
-                    "                                <p class=\"card-text\">\n" +maint._CISubset_description+"</p>\n" +
-                    "                            </div>\n" +
-                    "                        </div>\n" +
-                    "                        <div class=\"card-footer d-flex justify-content-between\">\n" +
-                    "                            <span>Stato: "+maint._ProcessStatus_description_translation+"</span>\n" +
-                    "                            <button class=\"btn btn-light-primary\" onclick='window.location.href =\"maint-detail.html?id="+maint._id+"\"' >Dettagli</button>\n" +
-                    "                        </div>\n" +
-                    "                    </div>");
+                if (maint._ProcessStatus_description_translation === status || status === "all") {
+                    document.getElementById("spinner").style.visibility = "hidden";
+                    $("#spinner").visibility = false;
+                    $("#maints").append("<div class=\"card\">\n" +
+                        "                        <div class=\"card-content\">\n" +
+                        "                            <div class=\"card-body\">\n" +
+                        "                                <h4 class=\"card-title\">" + maint.ShortDescr + "</h4>\n" +
+                        "                                <p class=\"card-text\">\n" + maint.Description + "</p>\n" +
+                        "                                <p class=\"card-text\">\n" + maint._CISubset_description + "</p>\n" +
+                        "                            </div>\n" +
+                        "                        </div>\n" +
+                        "                        <div class=\"card-footer d-flex justify-content-between\">\n" +
+                        "                            <span>Stato: " + maint._ProcessStatus_description_translation + "</span>\n" +
+                        "                            <button class=\"btn btn-light-primary\" onclick='window.location.href =\"maint-detail.html?id=" + maint._id + "\"' >Dettagli</button>\n" +
+                        "                        </div>\n" +
+                        "                    </div>");
                 }
+            });
             }).catch(function (error) {
                 console.error(error);
                 catch_errors(error);
             });
 
-        });
+
     }
 
 
