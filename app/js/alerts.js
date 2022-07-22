@@ -1,4 +1,4 @@
-function alert(type,message){
+function show_alert(type,message){
     window.scrollTo(0, 0);
     if(type==="error"){
         $("#alert").html("<div class=\"alert alert-"+type+"\" >\n" +

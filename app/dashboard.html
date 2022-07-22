@@ -167,7 +167,7 @@
 
             ndef.addEventListener("readingerror", () => {
                 console.log("Argh! Cannot read data from the NFC tag. Try another one?");
-                alert("warning","Non è possibile leggere il tag NFC");
+                show_alert("warning","Non è possibile leggere il tag NFC");
             });
 
             ndef.addEventListener("reading", ({ message, serialNumber }) => {
