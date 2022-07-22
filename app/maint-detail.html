@@ -202,17 +202,37 @@
                     };
 
                     axios.request(options).then(function (response) {
-                        console.log("OTTENGO LA TASKLIST");
-                        console.log(response.data);
-                        let tasklist=JSON.parse(response.data.data[0].Data);
-                        tasklist.forEach(task=>{
-                            $("#tasklist").append("<div class=\"form-check form-switch\">\n" +
-                                "                            <input class=\"form-check-input\" type=\"checkbox\" id=\""+task.TaskDef+"\" >\n" +
-                                "                            <label class=\"form-check-label\" for=\"flexSwitchCheckChecked\">"+task._TaskDef_description +" </label>" +
-                                "                        </div> <hr>");
+
+                        const get_possible_task_outcome = {
+                            method: 'GET',
+                            url: localStorage.getItem("server_url")+'/services/rest/v3/lookup_types/PrevMaintTasks%20-%20Outcome/values',
+                            headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
+                        };
+
+                        axios.request(get_possible_task_outcome).then(function (response2) {
+                            possbile_outcome = response2.data;
+                            console.log(possbile_outcome);
+                            outcome_positivo=possbile_outcome.data.find(outcome=>outcome.description==="Positive");
+
+                            console.log("OTTENGO LA TASKLIST");
+                            console.log(response.data);
+                            let tasklist = JSON.parse(response.data.data[0].Data);
+
+                            tasklist.forEach(task => {
+                                if (task.Outcome == outcome_positivo) {
+                                    $("#tasklist").append("<div class=\"form-check form-switch\">\n" +
+                                        "                            <input class=\"form-check-input\" type=\"checkbox\" id=\"" + task.TaskDef + "\" checked >\n" +
+                                        "                            <label class=\"form-check-label\" for=\"flexSwitchCheckChecked\">" + task._TaskDef_description + " </label>" +
+                                        "                        </div> <hr>");
+                                } else {
+                                    $("#tasklist").append("<div class=\"form-check form-switch\">\n" +
+                                        "                            <input class=\"form-check-input\" type=\"checkbox\" id=\"" + task.TaskDef + "\" >\n" +
+                                        "                            <label class=\"form-check-label\" for=\"flexSwitchCheckChecked\">" + task._TaskDef_description + " </label>" +
+                                        "                        </div> <hr>");
+                                }
+                            });
+
                         });
-
-
                     }).catch(function (error) {
                         console.error(error);
                     });
