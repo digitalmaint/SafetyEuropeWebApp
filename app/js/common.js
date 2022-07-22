@@ -2,7 +2,7 @@ $("#sidebar-menu").html(" <ul class=\"menu\">\n" +
     "                    <li class=\"sidebar-title\">Menu</li>\n" +
     "\n" +
     "                    <li class=\"sidebar-item  has-sub\">\n" +
-    "                        <a href=\"dashboard.html\" class='sidebar-link'>\n" +
+    "                        <a href=\"\" class='sidebar-link'>\n" +
     "                            <i class=\"bi bi-stack\"></i>\n" +
     "                            <span>Manutenzioni Preventive</span>\n" +
     "                        </a>\n" +
