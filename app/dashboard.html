@@ -93,6 +93,9 @@
                 </div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="all-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('all')">Tutti</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
                         <a class="nav-link" id="pianificato-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false" onclick="show_filtered('Pianificato')">Pianificato</a>
                     </li>
                     <li class="nav-item" role="presentation">
@@ -110,9 +113,7 @@
                     <li class="nav-item" role="presentation">
                         <a class="nav-link " id="annullato-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Annullato')">Annullato</a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="all-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('all')">Tutti</a>
-                    </li>
+
                 </ul>
             </section>
 
@@ -226,7 +227,7 @@
 
     });
     function show_filtered(status){
-        ocument.getElementById("spinner").style.visibility = "visibile";
+        document.getElementById("spinner").style.visibility = "visibile";
         const options = {
             method: 'GET',
             url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances',
