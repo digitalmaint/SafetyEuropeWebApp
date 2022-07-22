@@ -466,7 +466,7 @@ function save(){
 
     const get_possible_task_outcome = {
         method: 'GET',
-        url: localStorage.getItem("server_url")+'/services/rest/v3/lookup_types/MaintProcess%20-%20Outcome/values',
+        url: localStorage.getItem("server_url")+'/services/rest/v3/lookup_types/PrevMaintTasks%20-%20Outcome/values',
         headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
     };
 
@@ -502,8 +502,9 @@ function save(){
                     console.log("NON è checked");
                     console.log(possbile_outcome.data.find(outcome=>outcome.description==="Negative")._id);
                     task.Outcome=possbile_outcome.data.find(outcome=>outcome.description==="Negative")._id;
+
                 }
-                task.Modified=true;
+
                 console.log(task);
             });
             console.log(tasklista);
