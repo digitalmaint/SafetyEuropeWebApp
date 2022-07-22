@@ -6,7 +6,7 @@ function catch_errors(error){
         "                    <p id=\"error\"> Errore: " +
         error.response.data.messages[0].message+
         "                    </p>\n" +
-        response.request.responseURL+
+        error.response.request.responseURL+
         "                </div>")
     if(error.response.status===401){
         localStorage.removeItem('auth_token');
