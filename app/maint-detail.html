@@ -227,7 +227,7 @@
                             possbile_outcome = response2.data;
                             console.log(possbile_outcome);
                             outcome_positivo=possbile_outcome.data.find(outcome=>outcome.description==="Positive")._id;
-                            outcome_negativo=possbile_outcome.data.find(outcome=>outcome.description==="Positive")._id;
+                            outcome_negativo=possbile_outcome.data.find(outcome=>outcome.description==="Negative")._id;
                             outcome_non_rilevato=null;
                             console.log("OTTENGO LA TASKLIST");
                             console.log(response.data);
