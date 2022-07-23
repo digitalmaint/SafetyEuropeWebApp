@@ -345,7 +345,7 @@
                 var sliceSize = 512;
                 b64Data = b64Data.replace(/^[^,]+,/, '');
                 b64Data = b64Data.replace(/\s/g, '');
-                var byteCharacters = window.atob(b64Data);
+                var byteCharacters = b64Data;
                 var byteArrays = [];
 
                 for ( var offset = 0; offset < byteCharacters.length; offset = offset + sliceSize ) {
