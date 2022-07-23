@@ -381,7 +381,7 @@
         axios.request(options).then(function (response) {
             console.log(response);
             var reader=new FileReader();
-            reader.onload(function(theFile){
+            reader.onload=(function(theFile){
                 return function(e){
                     var binaryData=e.target.result;
                     var base64string=window.btoa(binaryData);
