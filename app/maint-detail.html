@@ -136,6 +136,7 @@
 
                         "                                <p class=\"card-text\"><h6>Descrizione Manutenzione:</h6> " +maint.Description +"</p>\n" +
                         "                                <p class=\"card-text\"><h6>Asset:</h6> "+maint._CISubset_description+"</p>\n" +
+                        "                                <p class=\"card-text\"><h6>Scadenza:</h6> "+maint.ExecEndDate+"</p>\n" +
                         "                            </div>\n" +
                         "                        </div>\n" +
                         "                        <div class=\"card-footer d-flex justify-content-between\">" +
@@ -168,10 +169,18 @@
                     "                            <ul class=\"list-group\" id='tasklist'>\n" +
                     "                            </ul>\n" +
 
-                    "                    </div>"+
+                    "                    </div>");
+                // se lo stato è diverso dall'accettazione allora faccio vedere il bottone salva task
+                if(maint._ProcessStatus_description_translation==="Esecuzione"){
+                $("#maints").append("<div class=\"card\">\n" +
                     "         <button  class=\"btn btn-success\" onclick='save()'>Salva Modifiche</button>"
 
                 );
+                }
+                // se lo stato è diverso da pianificato allora faccio fare azioni
+                if(maint._ProcessStatus_description_translation!=="Pianififcato"){
+
+
                 GetPossibleStates = {
                     method: 'GET',
                     url: localStorage.getItem("server_url")+'/services/rest/v3/lookup_types/HEX50726f63657373202d20416374696f6e/values',
@@ -193,8 +202,8 @@
                     catch_errors(error);
 
                 });
-
-
+                }
+                // se lo stato è diverso da pianificato allora carico la task list
                 if(maint._ProcessStatus_description_translation!="Pianificato"){
                     const options = {
                         method: 'GET',
@@ -374,11 +383,8 @@
                     "                            <label for=\"basicInput\">Esito Manutenzione </label>\n" +
                     "                                        <select class=\"form-select\" id=\"select-outcome\">\n" +
                     "                                        </select>\n" +
-                    "                                    </fieldset>" +
-                    "<div class=\"form-group\">\n" +
-                    "                            <label for=\"basicInput\">Data fine esecuzione</label>\n" +
-                    "                            <input type=\"datetime-local\" class=\"form-control\" id=\"enddate\" >\n" +
-                    "                        </div>");
+                    "                                    </fieldset>"
+                    );
                 response.data.data.forEach(outcome=>{
                     $("#select-outcome").append("<option id='"+outcome._id+"'>"+outcome._description_translation+"</option>")
 
@@ -422,7 +428,7 @@
             obj._activity=obj._tasklist[0]._id;
             obj._advance= true;
             obj.Outcome=$("#select-outcome").children(":selected").attr("id");
-            obj.ExecEndDate=$("#enddate").val();
+            obj.ExecEndDate=Date.now();
             console.log("JSON da inviare:");
             console.log(obj);
             const options = {
