@@ -396,7 +396,7 @@
                             // Decode the Base64 string and show result just to make sure that everything is OK
                             var html = atob(b64);
                             console.log(html); //-> "Welcome to <b>base64.guru</b>!"
-                            window.open('data:application/pdf;base64,' + html);
+                            window.open('data:application/pdf;base64,' + b64);
                         };
 
             // Since everything is set up, let’s read the Blob and store the result as Data URI
