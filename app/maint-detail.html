@@ -235,6 +235,7 @@
 
                             tasklist.forEach(task => {
                                 if(task.Outcome===outcome_negativo){
+                                    console.log(task.Outcome+" e "+outcome_negativo+"->è negativo");
                                     $("#tasklist").append(" <div class=\"row\"> " +
                                         "                               <div class='col-5 col-md-5 col-lg-2 col-sm-5' style='padding-right: 0;'>"+
                                         "                                        <select class=\"form-select d-inline-block\" id=\"inputGroupSelect01\" style='height:100%'>" +
@@ -250,6 +251,7 @@
                                         "                   </div><hr>");
                                 }
                                 else if(task.Outcome===outcome_positivo){
+                                    console.log(task.Outcome+" e "+outcome_positivo+"->positivo");
                                     $("#tasklist").append(" <div class=\"row\"> " +
                                         "                               <div class='col-5 col-md-5 col-lg-2 col-sm-5' style='padding-right: 0;'>"+
                                         "                                        <select class=\"form-select d-inline-block\" id=\"inputGroupSelect01\" style='height:100%'>" +
@@ -265,6 +267,7 @@
                                         "                   </div><hr>");
                                 }
                                 else if(task.Outcome===outcome_non_rilevato){
+                                    console.log(task.Outcome+" e "+outcome_non_rilevato+"-> è non rilevato ");
                                     $("#tasklist").append(" <div class=\"row\"> " +
                                         "                               <div class='col-5 col-md-5 col-lg-2 col-sm-5' style='padding-right: 0;'>"+
                                         "                                        <select class=\"form-select d-inline-block\" id=\"inputGroupSelect01\" style='height:100%'>" +
