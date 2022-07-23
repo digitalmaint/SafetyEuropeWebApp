@@ -328,10 +328,10 @@
 
         axios.request(options).then(function (response) {
             console.log(response);
-            showFile(blob){
+
                 // It is necessary to create a new blob object with mime-type explicitly set
                 // otherwise only Chrome works like it should
-                var newBlob = new Blob([blob], {type: "application/pdf"})
+                var newBlob = new Blob([response.data], {type: "application/pdf"});
 
                 // IE doesn't allow using a blob object directly as link href
                 // instead it is necessary to use msSaveOrOpenBlob
@@ -351,10 +351,10 @@
                     // For Firefox it is necessary to delay revoking the ObjectURL
                     window.URL.revokeObjectURL(data);
                 }, 100);
-            }
 
 
-            showFile(response.data);
+
+
 
         }).catch(function (error) {
             console.error(error);
