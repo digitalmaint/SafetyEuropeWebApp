@@ -331,7 +331,7 @@
 
                 // It is necessary to create a new blob object with mime-type explicitly set
                 // otherwise only Chrome works like it should
-            window.open('data:application/pdf;base64,' + Base64.encode(btoa(unescape(encodeURIComponent(response.data)))));
+            window.open('data:application/pdf;base64,' + btoa(unescape(encodeURIComponent(response.data))));
 
 
 
