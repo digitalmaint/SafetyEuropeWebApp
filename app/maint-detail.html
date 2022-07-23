@@ -251,52 +251,56 @@
                                         "                               </div>" +
                                         "                   </div><hr>");
                                 }
-                                else if(task.Outcome===outcome_positivo){
-                                    console.log(task.Outcome+" e "+outcome_positivo+"->positivo");
-                                    $("#tasklist").append(" <div class=\"row\"> " +
-                                        "                               <div class='col-5 col-md-5 col-lg-2 col-sm-5' style='padding-right: 0;'>"+
-                                        "                                        <select class=\"form-select d-inline-block\" id=\"inputGroupSelect01\" style='height:100%'>" +
-                                        "                                            <option ></option>\n" +
-                                        "                                            <option value=\""+possbile_outcome.data.find(outcome=>outcome.description==="Positive")._id+"\" selected>Positivo</option>\n" +
-                                        "                                            <option value=\""+possbile_outcome.data.find(outcome=>outcome.description==="Negative")._id+"\" >Negativo</option>\n" +
-                                        "                                            <option value=\"null\">N.R.</option>\n" +
-                                        "                                        </select>" +
-                                        "                               </div>" +
-                                        "                               <div class='col-7 col-md-7 col-lg-10 col-sm-7 ' style='padding-left: 0;'>"+
-                                        "                                        <p class=\"input-group-text \" for=\"inputGroupSelect01\" style='display:inline-block; vertical-align: top; height: 100%; text-align: left; white-space: normal;'>" + task._TaskDef_description + "</p>\n" +
-                                        "                               </div>" +
-                                        "                   </div><hr>");
-                                }
-                                else if(task.Outcome===outcome_non_rilevato && task.ND===true){
-                                    console.log(task.Outcome+" e "+outcome_non_rilevato+" e ND: "+task.ND+"-> è non rilevato ");
-                                    $("#tasklist").append(" <div class=\"row\"> " +
-                                        "                               <div class='col-5 col-md-5 col-lg-2 col-sm-5' style='padding-right: 0;'>"+
-                                        "                                        <select class=\"form-select d-inline-block\" id=\"inputGroupSelect01\" style='height:100%'>" +
-                                        "                                            <option ></option>\n" +
-                                        "                                            <option value=\""+possbile_outcome.data.find(outcome=>outcome.description==="Positive")._id+"\">Positivo</option>\n" +
-                                        "                                            <option value=\""+possbile_outcome.data.find(outcome=>outcome.description==="Negative")._id+"\" >Negativo</option>\n" +
-                                        "                                            <option value=\"null\" selected>N.R.</option>\n" +
-                                        "                                        </select>" +
-                                        "                               </div>" +
-                                        "                               <div class='col-7 col-md-7 col-lg-10 col-sm-7 ' style='padding-left: 0;'>"+
-                                        "                                        <p class=\"input-group-text \" for=\"inputGroupSelect01\" style='display:inline-block; vertical-align: top; height: 100%; text-align: left; white-space: normal;'>" + task._TaskDef_description + "</p>\n" +
-                                        "                               </div>" +
-                                        "                   </div><hr>");
-                                }
-                                else{
-                                    $("#tasklist").append(" <div class=\"row\"> " +
-                                        "                               <div class='col-5 col-md-5 col-lg-2 col-sm-5' style='padding-right: 0;'>"+
-                                        "                                        <select class=\"form-select d-inline-block\" id=\"inputGroupSelect01\" style='height:100%'>" +
-                                        "                                            <option selected></option>\n" +
-                                        "                                            <option value=\""+possbile_outcome.data.find(outcome=>outcome.description==="Positive")._id+"\">Positivo</option>\n" +
-                                        "                                            <option value=\""+possbile_outcome.data.find(outcome=>outcome.description==="Negative")._id+"\" selected>Negativo</option>\n" +
-                                        "                                            <option value=\"null\">N.R.</option>\n" +
-                                        "                                        </select>" +
-                                        "                               </div>" +
-                                        "                               <div class='col-7 col-md-7 col-lg-10 col-sm-7 ' style='padding-left: 0;'>"+
-                                        "                                        <p class=\"input-group-text \" for=\"inputGroupSelect01\" style='display:inline-block; vertical-align: top; height: 100%; text-align: left; white-space: normal;'>" + task._TaskDef_description + "</p>\n" +
-                                        "                               </div>" +
-                                        "                   </div><hr>");
+                                else {
+                                    if(task.Outcome===outcome_positivo){
+                                        console.log(task.Outcome+" e "+outcome_positivo+"->positivo");
+                                        $("#tasklist").append(" <div class=\"row\"> " +
+                                            "                               <div class='col-5 col-md-5 col-lg-2 col-sm-5' style='padding-right: 0;'>"+
+                                            "                                        <select class=\"form-select d-inline-block\" id=\"inputGroupSelect01\" style='height:100%'>" +
+                                            "                                            <option ></option>\n" +
+                                            "                                            <option value=\""+possbile_outcome.data.find(outcome=>outcome.description==="Positive")._id+"\" selected>Positivo</option>\n" +
+                                            "                                            <option value=\""+possbile_outcome.data.find(outcome=>outcome.description==="Negative")._id+"\" >Negativo</option>\n" +
+                                            "                                            <option value=\"null\">N.R.</option>\n" +
+                                            "                                        </select>" +
+                                            "                               </div>" +
+                                            "                               <div class='col-7 col-md-7 col-lg-10 col-sm-7 ' style='padding-left: 0;'>"+
+                                            "                                        <p class=\"input-group-text \" for=\"inputGroupSelect01\" style='display:inline-block; vertical-align: top; height: 100%; text-align: left; white-space: normal;'>" + task._TaskDef_description + "</p>\n" +
+                                            "                               </div>" +
+                                            "                   </div><hr>");
+                                    }
+                                    else {
+                                        if(task.Outcome===outcome_non_rilevato && task.ND===true){
+                                            console.log(task.Outcome+" e "+outcome_non_rilevato+" e ND: "+task.ND+"-> è non rilevato ");
+                                            $("#tasklist").append(" <div class=\"row\"> " +
+                                                "                               <div class='col-5 col-md-5 col-lg-2 col-sm-5' style='padding-right: 0;'>"+
+                                                "                                        <select class=\"form-select d-inline-block\" id=\"inputGroupSelect01\" style='height:100%'>" +
+                                                "                                            <option ></option>\n" +
+                                                "                                            <option value=\""+possbile_outcome.data.find(outcome=>outcome.description==="Positive")._id+"\">Positivo</option>\n" +
+                                                "                                            <option value=\""+possbile_outcome.data.find(outcome=>outcome.description==="Negative")._id+"\" >Negativo</option>\n" +
+                                                "                                            <option value=\"null\" selected>N.R.</option>\n" +
+                                                "                                        </select>" +
+                                                "                               </div>" +
+                                                "                               <div class='col-7 col-md-7 col-lg-10 col-sm-7 ' style='padding-left: 0;'>"+
+                                                "                                        <p class=\"input-group-text \" for=\"inputGroupSelect01\" style='display:inline-block; vertical-align: top; height: 100%; text-align: left; white-space: normal;'>" + task._TaskDef_description + "</p>\n" +
+                                                "                               </div>" +
+                                                "                   </div><hr>");
+                                        }
+                                        else{
+                                            $("#tasklist").append(" <div class=\"row\"> " +
+                                                "                               <div class='col-5 col-md-5 col-lg-2 col-sm-5' style='padding-right: 0;'>"+
+                                                "                                        <select class=\"form-select d-inline-block\" id=\"inputGroupSelect01\" style='height:100%'>" +
+                                                "                                            <option selected></option>\n" +
+                                                "                                            <option value=\""+possbile_outcome.data.find(outcome=>outcome.description==="Positive")._id+"\">Positivo</option>\n" +
+                                                "                                            <option value=\""+possbile_outcome.data.find(outcome=>outcome.description==="Negative")._id+"\" selected>Negativo</option>\n" +
+                                                "                                            <option value=\"null\">N.R.</option>\n" +
+                                                "                                        </select>" +
+                                                "                               </div>" +
+                                                "                               <div class='col-7 col-md-7 col-lg-10 col-sm-7 ' style='padding-left: 0;'>"+
+                                                "                                        <p class=\"input-group-text \" for=\"inputGroupSelect01\" style='display:inline-block; vertical-align: top; height: 100%; text-align: left; white-space: normal;'>" + task._TaskDef_description + "</p>\n" +
+                                                "                               </div>" +
+                                                "                   </div><hr>");
+                                        }
+                                    }
                                 }
 
 
