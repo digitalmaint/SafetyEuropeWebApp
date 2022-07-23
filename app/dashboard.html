@@ -373,7 +373,7 @@
     function open_pdf(id){
 
         var request = new XMLHttpRequest();
-        request.open("GET", "https://platform.safetyeurope.eu/openmaint-test/services/rest/v3/reports/286763/Activity%20report.pdf?extension=pdf&parameters=%7B%22ProcessId%22%3A6241125%7D'");
+        request.open("GET", localStorage.getItem("server_url")+"/services/rest/v3/reports/286763/Activity%20report.pdf?extension=pdf&parameters=%7B%22ProcessId%22%3A"+id+"%7D'");
         request.responseType = "blob";
         request.setRequestHeader('CMDBuild-Authorization', localStorage.getItem("auth_token"));
 
@@ -385,7 +385,7 @@
                 var file = window.URL.createObjectURL(this.response);
                 var a = document.createElement("a");
                 a.href = file;
-                a.download = this.response.name || "detailPDF";
+                a.download = this.response.name || "RapportoManutenzione_"+id;
                 document.body.appendChild(a);
                 a.click();
                 // remove `a` following `Save As` dialog,
@@ -397,31 +397,7 @@
         };
         request.send();
 
-        const options = {
-            method: 'GET',
-            url: localStorage.getItem("server_url")+'/services/rest/v3/reports/286763/Activity%20report.pdf',
-            params: {extension: 'base64', parameters: '{"ProcessId":'+id+'}\''},
-            headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")},
-            responseType: "blob"
-        };
 
-        axios.request(options).then(function (response) {
-
-
-
-
-
-
-
-
-
-
-
-
-
-        }).catch(function (error) {
-            console.error(error);
-        });
 
 
     }
