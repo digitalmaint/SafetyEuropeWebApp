@@ -18,6 +18,7 @@
     <script src="js/jsonpath.js"></script>
     <script src="js/alerts.js"></script>
     <script src="js/dateformat.js"></script>
+    <script src="js/filesaver.js"></script>
 </head>
 
 <body>
@@ -326,7 +327,8 @@
         };
 
         axios.request(options).then(function (response) {
-            window.open("data:application/pdf;base64, " + response.data);
+            var blob = new Blob([response.data], {type: "application/pdf"});
+            FileSaver.saveAs(blob, "filename");
 
         }).catch(function (error) {
             console.error(error);
