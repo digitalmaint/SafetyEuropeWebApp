@@ -19,7 +19,6 @@
     <script src="js/jsonpath.js"></script>
     <script src="js/alerts.js"></script>
     <script src="js/dateformat.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.14.305/build/pdf.min.js"></script>
 </head>
 
 <body>
@@ -687,6 +686,32 @@ function save(){
 
 
 }
+    function open_pdf(id){
+        var request = new XMLHttpRequest();
+        request.open("GET", localStorage.getItem("server_url")+"/services/rest/v3/reports/286763/Activity%20report.pdf?extension=pdf&parameters=%7B%22ProcessId%22%3A"+id+"%7D'");
+        request.responseType = "blob";
+        request.setRequestHeader('CMDBuild-Authorization', localStorage.getItem("auth_token"));
+
+        request.onload = function (e) {
+            if (this.status === 200) {
+                // `blob` response
+                console.log(this.response);
+                // create `objectURL` of `this.response` : `.pdf` as `Blob`
+                var file = window.URL.createObjectURL(this.response);
+                var a = document.createElement("a");
+                a.href = file;
+                a.download = this.response.name || "RapportoManutenzione_"+id;
+                document.body.appendChild(a);
+                a.click();
+                // remove `a` following `Save As` dialog,
+                // `window` regains `focus`
+                window.onfocus = function () {
+                    document.body.removeChild(a)
+                }
+            };
+        };
+        request.send();
+    }
 
 </script>
 
