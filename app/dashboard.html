@@ -327,12 +327,13 @@
         };
 
         axios.request(options).then(function (response) {
-            const pdfWindow = window.open("");
-            pdfWindow.document.write(
-                `<iframe width='100%' height='100%' src='data:application/pdf;base64,${encodeURI(
-                    response.data
-                )}''></iframe>`
-            );
+            const linkSource = `data:application/pdf;base64,${response.data}`;
+            const downloadLink = document.createElement("a");
+            const fileName = "vct_illustration.pdf";
+
+            downloadLink.href = linkSource;
+            downloadLink.download = fileName;
+            downloadLink.click();
 
         }).catch(function (error) {
             console.error(error);
