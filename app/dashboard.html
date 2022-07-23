@@ -326,12 +326,23 @@
         };
 
         axios.request(options).then(function (response) {
-            console.log(response.data);
+            var objbuilder = '';
+            objbuilder += ('<object width="100%" height="100%"
+            data="data:application/pdf;base64,');
+            objbuilder += (response.data);
+            objbuilder += ('" type="application/pdf" class="internal">');
+            objbuilder += ('<embed src="data:application/pdf;base64,');
+            objbuilder += (response.data);
+            objbuilder += ('" type="application/pdf"  />');
+            objbuilder += ('</object>');
 
-            let pdfWindow = window.open("");
-            pdfWindow.document.write(
-                "<html><head><title>Rapporto Manutezione</title></head><body><iframe title='MY title'  width='100%' height='100%' src='data:application/pdf;base64, " +    response.data+ "'></iframe></body></html>"
-            )
+            var win = window.open("#","_blank");
+            var title = "my tab title";
+            win.document.write('<html><title>'+ title +'</title><body style="margin-top:
+            0px; margin-left: 0px; margin-right: 0px; margin-bottom: 0px;">');
+            win.document.write(objbuilder);
+            win.document.write('</body></html>');
+            layer = jQuery(win.document);
         }).catch(function (error) {
             console.error(error);
         });
