@@ -154,6 +154,7 @@
                     "                                <h4 class=\"card-title\">"+maint.ShortDescr+"</h4>\n" +
                     "                                <p class=\"card-text\"><h6>Descrizione Manutenzione:</h6> " +maint.Description +"</p>\n" +
                     "                                <p class=\"card-text\"><h6>Asset:</h6> "+maint._CISubset_description+"</p>\n" +
+                    "                                <p class=\"card-text\"><h6>Asset:</h6> "+maint.ExecEndDate+"</p>\n" +
                     "                            </div>\n" +
                     "                        </div>\n" +
                     "                        <div class=\"card-footer d-flex justify-content-between\">" +
@@ -232,7 +233,18 @@
                             let tasklist = JSON.parse(response.data.data[0].Data);
 
                             tasklist.forEach(task => {
+                                $("#tasklist").append("<div class=\"input-group mb-3\">\n" +
+                                    "                                        <select class=\"form-select\" id=\"inputGroupSelect01\">\n" +
+                                    "                                            <option selected=\"\"></option>\n" +
+                                    "                                            <option value=\"1\">Positivo</option>\n" +
+                                    "                                            <option value=\"2\">Negativo</option>\n" +
+                                    "                                            <option value=\"3\">N.R.</option>\n" +
+                                    "                                        </select>\n" +
+                                    "                                        <label class=\"input-group-text\" for=\"inputGroupSelect01\">" + task._TaskDef_description + "</label>\n" +
+                                    "                                    </div>");
+                                /*
                                 if (task.Outcome == outcome_positivo) {
+
                                     $("#tasklist").append("<div class=\"form-check form-switch\">\n" +
                                         "                            <input class=\"form-check-input\" type=\"checkbox\" id=\"" + task.TaskDef + "\" checked >\n" +
                                         "                            <label class=\"form-check-label\" for=\"flexSwitchCheckChecked\">" + task._TaskDef_description + " </label>" +
@@ -242,7 +254,7 @@
                                         "                            <input class=\"form-check-input\" type=\"checkbox\" id=\"" + task.TaskDef + "\" >\n" +
                                         "                            <label class=\"form-check-label\" for=\"flexSwitchCheckChecked\">" + task._TaskDef_description + " </label>" +
                                         "                        </div> <hr>");
-                                }
+                                }*/
                             });
 
                         });
@@ -344,15 +356,16 @@
 
             axios.request(get_suspension_reason).then(function (response) {
 
-                $("#reasons").append("<fieldset class=\"form-group\">\n" +
+                $("#reasons").html("<fieldset class=\"form-group\">\n" +
                     "                                        <select class=\"form-select\" id=\"select-reason\">\n" +
                     "                                        </select>\n" +
-                    "                                    </fieldset>");
+                    "                                    </fieldset>"+
+                    " <button  class=\"btn btn-warning\" onclick='suspend("+id+")'>Sospendi</button>");
                 response.data.data.forEach(reason=>{
                     $("#select-reason").append("<option id='"+reason._id+"'>"+reason._description_translation+"</option>")
 
                 });
-                $("#reasons").append(" <button  class=\"btn btn-warning\" onclick='suspend("+id+")'>Sospendi</button>");
+
             }).catch(function (error) {
                 console.error(error);
                 catch_errors(error);
@@ -383,13 +396,14 @@
                     "                            <label for=\"basicInput\">Esito Manutenzione </label>\n" +
                     "                                        <select class=\"form-select\" id=\"select-outcome\">\n" +
                     "                                        </select>\n" +
-                    "                                    </fieldset>"
+                    "                                    </fieldset>"+
+                    " <button  class=\"btn btn-warning\" onclick='Close("+id+")'>Chiudi Intervento</button>"
                     );
                 response.data.data.forEach(outcome=>{
                     $("#select-outcome").append("<option id='"+outcome._id+"'>"+outcome._description_translation+"</option>")
 
                 });
-                $("#reasons").append(" <button  class=\"btn btn-warning\" onclick='Close("+id+")'>Chiudi Intervento</button>");
+
 
             }).catch(function (error) {
             console.error(error);
