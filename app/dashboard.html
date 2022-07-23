@@ -371,12 +371,38 @@
 
     }
     function open_pdf(id){
+
+        var request = new XMLHttpRequest();
+        request.open("GET", localStorage.getItem("server_url")+"/services/rest/v3/reports/286763/Activity%20report.pdf?extension=pdf&parameters='{\"ProcessId\":'+id+'}\\''", true);
+        request.responseType = "blob";
+        request.setRequestHeader('CMDBuild-Authorization', localStorage.getItem("auth_token"));
+
+        request.onload = function (e) {
+            if (this.status === 200) {
+                // `blob` response
+                console.log(this.response);
+                // create `objectURL` of `this.response` : `.pdf` as `Blob`
+                var file = window.URL.createObjectURL(this.response);
+                var a = document.createElement("a");
+                a.href = file;
+                a.download = this.response.name || "detailPDF";
+                document.body.appendChild(a);
+                a.click();
+                // remove `a` following `Save As` dialog,
+                // `window` regains `focus`
+                window.onfocus = function () {
+                    document.body.removeChild(a)
+                }
+            };
+        };
+        request.send();
+
         const options = {
             method: 'GET',
             url: localStorage.getItem("server_url")+'/services/rest/v3/reports/286763/Activity%20report.pdf',
-            params: {extension: 'pdf', parameters: '{"ProcessId":6561071}\''},
+            params: {extension: 'base64', parameters: '{"ProcessId":'+id+'}\''},
             headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")},
-            responseType: "arraybuffer"
+            responseType: "blob"
         };
 
         axios.request(options).then(function (response) {
