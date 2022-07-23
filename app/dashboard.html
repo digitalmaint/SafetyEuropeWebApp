@@ -373,7 +373,7 @@
     function open_pdf(id){
 
         var request = new XMLHttpRequest();
-        request.open("GET", localStorage.getItem("server_url")+"/services/rest/v3/reports/286763/Activity%20report.pdf?extension=pdf&parameters='{\"ProcessId\":'+id+'}\\''", true);
+        request.open("GET", "https://platform.safetyeurope.eu/openmaint-test/services/rest/v3/reports/286763/Activity%20report.pdf?extension=pdf&parameters=%7B%22ProcessId%22%3A6241125%7D'");
         request.responseType = "blob";
         request.setRequestHeader('CMDBuild-Authorization', localStorage.getItem("auth_token"));
 
