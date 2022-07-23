@@ -235,7 +235,7 @@
 
                             tasklist.forEach(task => {
                                 console.log("Outcome del task: "+task.Outcome);
-                                if(task.Outcome===outcome_negativo){
+                                if(task.Outcome==outcome_negativo){
                                     console.log(task.Outcome+" e "+outcome_negativo+"->è negativo");
                                     $("#tasklist").append(" <div class=\"row\"> " +
                                         "                               <div class='col-5 col-md-5 col-lg-2 col-sm-5' style='padding-right: 0;'>"+
@@ -252,7 +252,7 @@
                                         "                   </div><hr>");
                                 }
                                 else {
-                                    if(task.Outcome===outcome_positivo){
+                                    if(task.Outcome==outcome_positivo){
                                         console.log(task.Outcome+" e "+outcome_positivo+"->positivo");
                                         $("#tasklist").append(" <div class=\"row\"> " +
                                             "                               <div class='col-5 col-md-5 col-lg-2 col-sm-5' style='padding-right: 0;'>"+
