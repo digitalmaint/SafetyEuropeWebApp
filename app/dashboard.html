@@ -382,7 +382,7 @@
             console.log(response);
 
                     var binaryData=response.data;
-                    var base64string=window.btoa(binaryData);
+                    var base64string=window.btoa(unescape(encodeURIComponent( binaryData )));
                     window.open('data:application/pdf;base64,' + base64string);
 
 
