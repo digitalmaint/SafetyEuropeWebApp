@@ -330,7 +330,7 @@
             console.log(response);
             const reader = new FileReader();
             reader.readAsDataURL(new Blob([response.data]));
-            console.log(reader.readAsDataURL(new Blob([response.data])));
+            //console.log(reader.readAsDataURL(new Blob([response.data])));
                 // It is necessary to create a new blob object with mime-type explicitly set
                 // otherwise only Chrome works like it should
             window.open('data:application/pdf;base64,' + reader.readAsDataURL(new Blob([response.data])));
