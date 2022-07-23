@@ -326,7 +326,7 @@
         };
 
         axios.request(options).then(function (response) {
-            var byteCharacters = atob(response.data);
+            var byteCharacters = atob(unescape(encodeURIComponent(response.data)));
             var byteNumbers = new Array(byteCharacters.length);
             for (var i = 0; i < byteCharacters.length; i++) {
                 byteNumbers[i] = byteCharacters.charCodeAt(i);
