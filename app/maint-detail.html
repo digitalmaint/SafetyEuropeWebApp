@@ -234,7 +234,7 @@
                             let tasklist = JSON.parse(response.data.data[0].Data);
 
                             tasklist.forEach(task => {
-                                if(task.Outcome==outcome_negativo){
+                                if(task.Outcome===outcome_negativo){
                                     $("#tasklist").append(" <div class=\"row\"> " +
                                         "                               <div class='col-5 col-md-5 col-lg-2 col-sm-5' style='padding-right: 0;'>"+
                                         "                                        <select class=\"form-select d-inline-block\" id=\"inputGroupSelect01\" style='height:100%'>" +
@@ -249,7 +249,7 @@
                                         "                               </div>" +
                                         "                   </div><hr>");
                                 }
-                                else if(task.Outcome==outcome_positivo){
+                                else if(task.Outcome===outcome_positivo){
                                     $("#tasklist").append(" <div class=\"row\"> " +
                                         "                               <div class='col-5 col-md-5 col-lg-2 col-sm-5' style='padding-right: 0;'>"+
                                         "                                        <select class=\"form-select d-inline-block\" id=\"inputGroupSelect01\" style='height:100%'>" +
@@ -264,7 +264,7 @@
                                         "                               </div>" +
                                         "                   </div><hr>");
                                 }
-                                else if(task.Outcome==outcome_non_rilevato){
+                                else if(task.Outcome===outcome_non_rilevato){
                                     $("#tasklist").append(" <div class=\"row\"> " +
                                         "                               <div class='col-5 col-md-5 col-lg-2 col-sm-5' style='padding-right: 0;'>"+
                                         "                                        <select class=\"form-select d-inline-block\" id=\"inputGroupSelect01\" style='height:100%'>" +
