@@ -234,6 +234,7 @@
                             let tasklist = JSON.parse(response.data.data[0].Data);
 
                             tasklist.forEach(task => {
+                                console.log("Outcome del task: "+task.Outcome);
                                 if(task.Outcome===outcome_negativo){
                                     console.log(task.Outcome+" e "+outcome_negativo+"->è negativo");
                                     $("#tasklist").append(" <div class=\"row\"> " +
