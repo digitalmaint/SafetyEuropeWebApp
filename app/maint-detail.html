@@ -154,7 +154,7 @@
                     "                                <h4 class=\"card-title\">"+maint.ShortDescr+"</h4>\n" +
                     "                                <p class=\"card-text\"><h6>Descrizione Manutenzione:</h6> " +maint.Description +"</p>\n" +
                     "                                <p class=\"card-text\"><h6>Asset:</h6> "+maint._CISubset_description+"</p>\n" +
-                    "                                <p class=\"card-text\"><h6>Asset:</h6> "+maint.ExecEndDate+"</p>\n" +
+                    "                                <p class=\"card-text\"><h6>Scadenza:</h6> "+maint.ExecEndDate+"</p>\n" +
                     "                            </div>\n" +
                     "                        </div>\n" +
                     "                        <div class=\"card-footer d-flex justify-content-between\">" +
@@ -424,7 +424,7 @@
                     "                                    </fieldset>"+
                     " <button  class=\"btn btn-warning\" onclick='suspend("+id+")'>Sospendi</button>");
                 response.data.data.forEach(reason=>{
-                    $("#select-reason").append("<option id='"+reason._id+"'>"+reason._description_translation+"</option>")
+                    $("#select-reason").append("<option id='"+reason._id+"' value='"+reason.code+"'>"+reason._description_translation+"</option>")
 
                 });
 
@@ -546,6 +546,7 @@
             obj.Action=id;
             obj._activity=obj._tasklist[0]._id;
             obj._advance= true;
+            obj._SuspensionReason_code=$("#select-reason option:selected").val()
 
 
 
