@@ -326,20 +326,7 @@
         };
 
         axios.request(options).then(function (response) {
-            var base64str = response.data;
-
-// decode base64 string, remove space for IE compatibility
-            var binary = atob(base64str.replace(/\s/g, ''));
-            var len = binary.length;
-            var buffer = new ArrayBuffer(len);
-            var view = new Uint8Array(buffer);
-            for (var i = 0; i < len; i++) {
-                view[i] = binary.charCodeAt(i);
-            }
-
-// create the blob object with content-type "application/pdf"
-            var blob = new Blob( [view], { type: "application/pdf" });
-            var url = URL.createObjectURL(blob);
+            window.open("data:application/pdf;base64, " + response.data);
 
         }).catch(function (error) {
             console.error(error);
