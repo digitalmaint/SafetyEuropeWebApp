@@ -347,8 +347,8 @@
         request.send();
     }
 
-    let scanButton=document.getElementById("search_nfc");
-    scanButton.addEventListener("click", async () => {
+    let search_nfc=document.getElementById("search_nfc");
+    search_nfc.addEventListener("click", async () => {
         console.log("User clicked scan button");
         try {
             const ndef = new NDEFReader();
