@@ -270,6 +270,8 @@
                 }
 
             });
+            document.getElementById("spinner").style.visibility = "hidden";
+            $("#maints").append("No results");
             }).catch(function (error) {
                 console.error(error);
                 catch_errors(error);
