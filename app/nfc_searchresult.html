@@ -133,40 +133,7 @@
             <div id="alert"> </div>
         </div>
         <div class="page-content">
-            <section class="row">
-                <div class="col-12 col-md-6 col-lg-6" >
-                    <div class="input-group mb-3">
-                        <a  class="btn icon icon-left btn-primary" id="search_nfc">
 
-                            Ricerca NFC
-                        </a>
-                    </div>
-                </div>
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="all-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('all')">Tutti</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="pianificato-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false" onclick="show_filtered('Pianificato')">Pianificato</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="accettazione-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" onclick="show_filtered('Accettazione')">Accettazione</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link " id="esecuzione-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Esecuzione')">Esecuzione</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link " id="sospensione-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Sospensione')">Sospensione</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link " id="completato-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Completato')">Completato</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link " id="annullato-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Annullato')">Annullato</a>
-                    </li>
-
-                </ul>
-            </section>
 
             <section class="row">
                 <div class="col-12 col-md-6 col-lg-6" >
@@ -199,11 +166,10 @@
     if(localStorage.getItem("auth_token")== null || localStorage.getItem("server_url")== null){
         window.location.href = "./index.html";
     }else{
-
-
+        show_filtered();
     }
 
-    function show_filtered(status){
+    function show_filtered(){
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const nfc_code = urlParams.get('nfcTag');
