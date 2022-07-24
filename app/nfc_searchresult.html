@@ -199,53 +199,14 @@
     if(localStorage.getItem("auth_token")== null || localStorage.getItem("server_url")== null){
         window.location.href = "./index.html";
     }else{
-       show_filtered("all");
-
-
-
 
 
     }
-    let scanButton=document.getElementById("search_nfc");
-    scanButton.addEventListener("click", async () => {
-        console.log("User clicked scan button search nfc");
-        try {
-            const ndef = new NDEFReader();
-            await ndef.scan();
-            console.log("> Scan started");
 
-            ndef.addEventListener("readingerror", () => {
-                console.log("Argh! Cannot read data from the NFC tag. Try another one?");
-                show_alert("warning","Non è possibile leggere il tag NFC");
-                $("#alert").html("<div class=\"alert alert-warning\" >\n" +
-                    "                    <h4 class=\"alert-heading\">Informazioni</h4>\n" +
-                    "                    <p>Errore nella lettura del tag nfc</p>\n" +
-                    "                </div>");
-            });
-
-            ndef.addEventListener("reading", ({ message, serialNumber }) => {
-
-                console.log(`> Serial Number: ${serialNumber}`);
-                console.log(serialNumber.replaceAll(":",""));
-
-                    $("#alert").html("<div class=\"alert alert-info\">" +
-                        "                    <h4 class=\"alert-heading\">Lettura NFC Effettuata Correttamente ... attendere</h4>" +
-                        "                    <p>La lettura del della Skill Card è stata eseguita con successo, attendere .... </p>" +
-                        "                </div>");
-
-
-
-
-
-
-
-            });
-        } catch (error) {
-            console.log("Argh! " + error);
-        }
-
-    });
     function show_filtered(status){
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const nfc_code = urlParams.get('nfcTag');
         document.getElementById("spinner").style.visibility = "visible";
         $("#maints").html("");
         const options = {
@@ -263,7 +224,7 @@
             $("#maints").html("");
             console.log(response.data);
             response.data.data.forEach(maint => {
-                if (maint._ProcessStatus_description_translation === status || status === "all") {
+                if(nfc_code===maint.NFCCode){
                     document.getElementById("spinner").style.visibility = "hidden";
                     if(maint._ProcessStatus_description_translation =="Pianificato"){
                         $("#maints").append("<div class=\"card\">\n" +
@@ -310,8 +271,8 @@
                             "                    </div>");
                     }
 
-
                 }
+
             });
             }).catch(function (error) {
                 console.error(error);
