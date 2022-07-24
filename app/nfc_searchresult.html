@@ -130,10 +130,36 @@
 
         <div class="page-heading">
             <h3>Manutenzioni Preventive</h3>
+            <h4 id="asset_name">Asset Scansionato: </h4>
             <div id="alert"> </div>
         </div>
         <div class="page-content">
+            <section>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="all-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('all')">Tutti</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="pianificato-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false" onclick="show_filtered('Pianificato')">Pianificato</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="accettazione-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" onclick="show_filtered('Accettazione')">Accettazione</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link " id="esecuzione-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Esecuzione')">Esecuzione</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link " id="sospensione-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Sospensione')">Sospensione</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link " id="completato-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Completato')">Completato</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link " id="annullato-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="show_filtered('Annullato')">Annullato</a>
+                    </li>
 
+                </ul>
+            </section>
 
             <section class="row">
                 <div class="col-12 col-md-6 col-lg-6" >
@@ -189,7 +215,9 @@
             console.log("GETTED MaINTS");
             $("#maints").html("");
             console.log(response.data);
+            $("#asset_name").append(response.data[0]._CISubset_description);
             response.data.data.forEach(maint => {
+
                 if(nfc_code===maint.NFCCode){
                     document.getElementById("spinner").style.visibility = "hidden";
                     if(maint._ProcessStatus_description_translation =="Pianificato"){
