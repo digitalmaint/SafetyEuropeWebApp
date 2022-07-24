@@ -130,7 +130,8 @@
 
         <div class="page-heading">
             <h3>Manutenzioni Preventive</h3>
-            <h4 id="asset_name">Asset Scansionato: </h4>
+            <h4 >Asset Scansionato: </h4>
+            <h4 id="asset_name"></h4>
             <div id="alert"> </div>
         </div>
         <div class="page-content">
@@ -215,10 +216,10 @@
             console.log("GETTED MaINTS");
             $("#maints").html("");
             console.log(response.data);
-            $("#asset_name").append(response.data[0]._CISubset_description);
-            response.data.data.forEach(maint => {
 
+            response.data.data.forEach(maint => {
                 if(nfc_code===maint.NFCCode){
+                    $("#asset_name").html(maint._CISubset_description);
                     document.getElementById("spinner").style.visibility = "hidden";
                     if(maint._ProcessStatus_description_translation =="Pianificato"){
                         $("#maints").append("<div class=\"card\">\n" +
