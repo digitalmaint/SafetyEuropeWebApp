@@ -193,10 +193,10 @@
     if(localStorage.getItem("auth_token")== null || localStorage.getItem("server_url")== null){
         window.location.href = "./index.html";
     }else{
-        show_filtered();
+        show_filtered("all");
     }
 
-    function show_filtered(){
+    function show_filtered(status){
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const nfc_code = urlParams.get('nfcTag');
@@ -219,6 +219,7 @@
 
             response.data.data.forEach(maint => {
                 if(nfc_code===maint.NFCCode){
+                    if(maint._ProcessStatus_description_translation===status || status==="all"){
                     $("#asset_name").html(maint._CISubset_description);
                     document.getElementById("spinner").style.visibility = "hidden";
                     if(maint._ProcessStatus_description_translation =="Pianificato"){
@@ -265,7 +266,7 @@
                             "                        </div>\n" +
                             "                    </div>");
                     }
-
+                    }
                 }
 
             });
