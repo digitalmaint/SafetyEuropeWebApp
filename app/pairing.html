@@ -90,8 +90,8 @@
                     <div class="input-group mb-3">
 
                         <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i>Cerca: </span>
-                        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" id="search">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Cerca</button>
                     </div>
                 </div>
 
@@ -135,8 +135,50 @@
 
 
     }
+    function search(){
+        document.getElementById("spinner").style.visibility = "visible";
+        $("#maints").html("");
+        const options = {
+            method: 'GET',
+            url: localStorage.getItem("server_url")+'/services/rest/v3/classes/CI/cards',
+            params:{
+                query: $("#search").val()
+            },
+            headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
+        };
 
-    function show_filtered(status){
+        axios.request(options).then(function (response) {
+            console.log("GETTED MaINTS");
+            $("#maints").html("");
+            console.log(response.data);
+            response.data.data.forEach(asset => {
+                document.getElementById("spinner").style.visibility = "hidden";
+                $("#assets").append("<div class=\"card\">\n" +
+                    "                        <div class=\"card-content\">\n" +
+                    "                            <div class=\"card-body\">\n" +
+                    "                                <h4 class=\"card-title\">" + asset.Name + "</h4>\n" +
+                    "                                <p class=\"card-text\">\n" + asset.Description + "</p>\n" +
+                    "                                <p class=\"card-text\">\n" + asset._CISubset_description + "</p>\n" +
+                    "                                <p class=\"card-text\">\n" + asset._Type_description_translation + "</p>\n" +
+                    "                                <p class=\"card-text\">\n" +asset._Building_description+" "+asset._Floor_description+" "+asset._Room_description+ "</p>\n" +
+                    "                                <p class=\"card-text\">\n" +asset._State_description_translation+ "</p>\n" +
+                    "                            </div>\n" +
+                    "                        </div>\n" +
+                    "                        <div class=\"card-footer d-flex justify-content-between\">\n" +
+                    "                            <button class=\"btn btn-light-primary\" onclick='window.location.href =\"asset-detail.html?id=" + asset._id + "\"' >Dettagli</button>\n" +
+                    "                        </div>\n" +
+                    "                    </div>");
+
+            });
+        }).catch(function (error) {
+            console.error(error);
+            catch_errors(error);
+        });
+
+
+    }
+
+    function show_filtered(){
         document.getElementById("spinner").style.visibility = "visible";
         $("#maints").html("");
         const options = {
@@ -176,61 +218,7 @@
 
 
     }
-    function open_pdf(id){
-        var request = new XMLHttpRequest();
-        request.open("GET", localStorage.getItem("server_url")+"/services/rest/v3/reports/286763/Activity%20report.pdf?extension=pdf&parameters=%7B%22ProcessId%22%3A"+id+"%7D'");
-        request.responseType = "blob";
-        request.setRequestHeader('CMDBuild-Authorization', localStorage.getItem("auth_token"));
 
-        request.onload = function (e) {
-            if (this.status === 200) {
-                // `blob` response
-                console.log(this.response);
-                // create `objectURL` of `this.response` : `.pdf` as `Blob`
-                var file = window.URL.createObjectURL(this.response);
-                var a = document.createElement("a");
-                a.href = file;
-                a.download = this.response.name || "RapportoManutenzione_"+id;
-                document.body.appendChild(a);
-                a.click();
-                // remove `a` following `Save As` dialog,
-                // `window` regains `focus`
-                window.onfocus = function () {
-                    document.body.removeChild(a)
-                }
-            };
-        };
-        request.send();
-    }
-
-    let search_nfc=document.getElementById("search_nfc");
-    search_nfc.addEventListener("click", async () => {
-        console.log("User clicked scan button");
-        try {
-            const ndef = new NDEFReader();
-            await ndef.scan();
-            console.log("> Scan started1");
-
-            ndef.addEventListener("readingerror", () => {
-                console.log("Argh! Cannot read data from the NFC tag. Try another one?");
-            });
-
-
-            ndef.addEventListener("reading", ({ message, serialNumber }) => {
-
-                console.log(`> Serial Number: ${serialNumber}`);
-                console.log(serialNumber.replaceAll(":",""));
-                window.location.href='nfc_searchresult.html?nfcTag='+serialNumber.replaceAll(":","");
-
-
-
-
-            });
-        } catch (error) {
-            console.log("Argh! " + error);
-        }
-
-    });
 
 </script>
 
