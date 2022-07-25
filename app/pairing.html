@@ -137,7 +137,7 @@
     }
     function search(){
         document.getElementById("spinner").style.visibility = "visible";
-        $("#maints").html("");
+        $("#assets").html("");
         const options = {
             method: 'GET',
             url: localStorage.getItem("server_url")+'/services/rest/v3/classes/CI/cards',
@@ -149,7 +149,7 @@
 
         axios.request(options).then(function (response) {
             console.log("GETTED MaINTS");
-            $("#maints").html("");
+            $("#assets").html("");
             console.log(response.data);
             response.data.data.forEach(asset => {
                 document.getElementById("spinner").style.visibility = "hidden";
@@ -180,7 +180,7 @@
 
     function show_filtered(){
         document.getElementById("spinner").style.visibility = "visible";
-        $("#maints").html("");
+        $("#assets").html("");
         const options = {
             method: 'GET',
             url: localStorage.getItem("server_url")+'/services/rest/v3/classes/CI/cards',
@@ -190,7 +190,7 @@
 
         axios.request(options).then(function (response) {
             console.log("GETTED MaINTS");
-            $("#maints").html("");
+            $("#assets").html("");
             console.log(response.data);
             response.data.data.forEach(asset => {
                     document.getElementById("spinner").style.visibility = "hidden";
