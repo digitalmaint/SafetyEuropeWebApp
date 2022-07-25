@@ -152,16 +152,15 @@
             console.log(response.data);
             response.data.data.forEach(asset => {
                     document.getElementById("spinner").style.visibility = "hidden";
-                    $("#maints").append("<div class=\"card\">\n" +
+                    $("#assets").append("<div class=\"card\">\n" +
                             "                        <div class=\"card-content\">\n" +
                             "                            <div class=\"card-body\">\n" +
                             "                                <h4 class=\"card-title\">" + asset.Name + "</h4>\n" +
                             "                                <p class=\"card-text\">\n" + asset.Description + "</p>\n" +
                             "                                <p class=\"card-text\">\n" + asset._CISubset_description + "</p>\n" +
                             "                                <p class=\"card-text\">\n" + asset._Type_description_translation + "</p>\n" +
-                            "                                <p class=\"card-text\">\n" +_Building_description+ "</p>\n" +
-                            "                                <p class=\"card-text\">\n" +_Building_description+" "+_Floor_description+" "+_Room_description+ "</p>\n" +
-                            "                                <p class=\"card-text\">\n" +_State_description_translation+ "</p>\n" +
+                            "                                <p class=\"card-text\">\n" +asset._Building_description+" "+_Floor_description+" "+_Room_description+ "</p>\n" +
+                            "                                <p class=\"card-text\">\n" +asset._State_description_translation+ "</p>\n" +
                             "                            </div>\n" +
                             "                        </div>\n" +
                             "                        <div class=\"card-footer d-flex justify-content-between\">\n" +
