@@ -243,6 +243,7 @@
     scanButton.addEventListener("click", async () => {
         console.log("User clicked scan button search nfc");
         try {
+            $("modal_scansione").modal('show');
             const ndef = new NDEFReader();
             await ndef.scan();
             console.log("> Scan started");
