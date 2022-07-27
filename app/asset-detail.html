@@ -230,7 +230,7 @@ function replace_NFCCode(id,nfc_code){
             },
             data: response.data
         };
-        axios.request(options).then(function (response) {
+        axios.request(options_put).then(function (response) {
             $("#modal_scansione").modal('hide');
             location.reload();
 
