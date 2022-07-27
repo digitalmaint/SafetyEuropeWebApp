@@ -169,6 +169,38 @@
                         "                        </div>" +
                         "                    </div>"
                     );
+                let scanButton=document.getElementById("pair_nfc");
+                scanButton.addEventListener("click", async () => {
+                    console.log("User clicked scan button search nfc");
+                    try {
+                        $("#modal_scansione").modal('show');
+                        const ndef = new NDEFReader();
+                        await ndef.scan();
+                        console.log("> Scan started");
+
+                        ndef.addEventListener("readingerror", () => {
+                            $("#modal_scansione").modal('hide');
+                            console.log("Argh! Cannot read data from the NFC tag. Try another one?");
+                            show_alert("warning","Non è possibile leggere il tag NFC");
+                            $("#alert").html("<div class=\"alert alert-warning\" >\n" +
+                                "                    <h4 class=\"alert-heading\">Informazioni</h4>\n" +
+                                "                    <p>Errore nella lettura del tag nfc</p>\n" +
+                                "                </div>");
+                        });
+
+                        ndef.addEventListener("reading", ({ message, serialNumber }) => {
+                            $("#modal_scansione").modal('hide');
+                            console.log(`> Serial Number: ${serialNumber}`);
+                            console.log(serialNumber.replaceAll(":",""));
+                            document.getElementById("search").value=serialNumber.replaceAll(":","");
+
+
+                        });
+                    } catch (error) {
+                        console.log("Argh! " + error);
+                    }
+
+                });
             }).catch(function (error) {
                 console.error(error);
                 catch_errors(error);
@@ -177,38 +209,7 @@
     }
 
 
-    let scanButton=document.getElementById("pair_nfc");
-    scanButton.addEventListener("click", async () => {
-        console.log("User clicked scan button search nfc");
-        try {
-            $("#modal_scansione").modal('show');
-            const ndef = new NDEFReader();
-            await ndef.scan();
-            console.log("> Scan started");
 
-            ndef.addEventListener("readingerror", () => {
-                $("#modal_scansione").modal('hide');
-                console.log("Argh! Cannot read data from the NFC tag. Try another one?");
-                show_alert("warning","Non è possibile leggere il tag NFC");
-                $("#alert").html("<div class=\"alert alert-warning\" >\n" +
-                    "                    <h4 class=\"alert-heading\">Informazioni</h4>\n" +
-                    "                    <p>Errore nella lettura del tag nfc</p>\n" +
-                    "                </div>");
-            });
-
-            ndef.addEventListener("reading", ({ message, serialNumber }) => {
-                $("#modal_scansione").modal('hide');
-                console.log(`> Serial Number: ${serialNumber}`);
-                console.log(serialNumber.replaceAll(":",""));
-                document.getElementById("search").value=serialNumber.replaceAll(":","");
-
-
-            });
-        } catch (error) {
-            console.log("Argh! " + error);
-        }
-
-    });
 
     function save(){
    console.log("TODO function SAVE");
