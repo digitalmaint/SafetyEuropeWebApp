@@ -115,7 +115,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>
+                <p id="reading_modal">
                     In attesa di leggere un tag NFC...
                 </p>
             </div>
@@ -189,10 +189,13 @@
                         });
 
                         ndef.addEventListener("reading", ({ message, serialNumber }) => {
-                            $("#modal_scansione").modal('hide');
                             console.log(`> Serial Number: ${serialNumber}`);
                             console.log(serialNumber.replaceAll(":",""));
-                            document.getElementById("search").value=serialNumber.replaceAll(":","");
+                            $("#reading_modal").html("<p>Lettura avvenuta con succcesso:</p>" +
+                                "<p>TAG Letto: "+asset.NFCCode+"</p>" +
+                                "<p>TAG Presente: "+serialNumber.replaceAll(":","")+"</p>" +
+                                "Sostituire? " +
+                                "<button  class=\"btn btn-warning\" id=\"replace_NFCCode("+asset_id+","+serialNumber.replaceAll(":","")+")\" >Abbina Tag NFC</button>");
 
 
                         });
