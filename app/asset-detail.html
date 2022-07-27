@@ -195,7 +195,7 @@
                                 "<p>TAG Letto: "+asset.NFCCode+"</p>" +
                                 "<p>TAG Presente: "+serialNumber.replaceAll(":","")+"</p>" +
                                 "Sostituire? " +
-                                "<button  class=\"btn btn-warning\" onclick=\"replace_NFCCode("+asset_id+","+serialNumber.replaceAll(":","")+")\" >Abbina Tag NFC</button>");
+                                "<button  class=\"btn btn-warning\" onclick=\"replace_NFCCode('"+asset_id+"', '"+serialNumber.replaceAll(":","")+"')\" >Abbina Tag NFC</button>");
                         });
                     } catch (error) {
                         console.log("Argh! " + error);
@@ -209,7 +209,7 @@
         }
     }
 
-function replace_NFCCode(id,nfc_code){
+function replace_NFCCode(id, nfc_code){
     $("#modal_scansione").modal('hide');
     const options = {
         method: 'GET',
@@ -220,7 +220,7 @@ function replace_NFCCode(id,nfc_code){
         }
     };
     axios.request(options).then(function (response) {
-        response.data.NFCCode=nfc_code;
+        response.data.data.NFCCode=nfc_code;
         const options_put = {
             method: 'PUT',
             url: localStorage.getItem("server_url")+'/services/rest/v3/classes/CI/cards/'+id,
@@ -228,7 +228,7 @@ function replace_NFCCode(id,nfc_code){
                 'Content-Type': 'application/json',
                 'CMDBuild-Authorization': localStorage.getItem("auth_token")
             },
-            data: response.data
+            data: response.data.data
         };
         axios.request(options_put).then(function (response) {
             $("#modal_scansione").modal('hide');
