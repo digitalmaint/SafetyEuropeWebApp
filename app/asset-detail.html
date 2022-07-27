@@ -105,6 +105,24 @@
         </footer>
     </div>
 </div>
+<div class="modal fade text-left modal-borderless" id="modal_scansione" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Lettura NFC</h5>
+                <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    In attesa di leggere un tag NFC...
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
 <script src="../assets/js/app.js"></script>
 <script src="../assets/js/pages/dashboard.js"></script>
 <script>
@@ -143,263 +161,56 @@
                         "                                <p class=\"card-text\"><h6>Ubicazione:</h6> "+asset._Building_description+" "+asset._Floor_description+" "+asset._Room_description+"</p>\n" +
                         "                                <p class=\"card-text\"><h6>Tipologia:</h6> "+asset._Type_description_translation+"</p>\n" +
                         "                                <p class=\"card-text\"><h6>Stato:</h6> "+asset._State_description_translation+"</p>\n" +
+                        "                                <p class=\"card-text\"><h6>NFC Code:</h6> "+asset.NFCCode+"</p>\n" +
                         "                            </div>\n" +
                         "                        </div>\n" +
                         "                        <div class=\"card-footer d-flex justify-content-between\">" +
-                       "                            <a href=\"#\" class=\"btn btn-warning\">Abbina Tag NFC</a>"+
+                        "                            <button  class=\"btn btn-warning\" id='pair_nfc'>Abbina Tag NFC</button>"+
                         "                        </div>" +
-
                         "                    </div>"
                     );
-
-
-
-
-
-
             }).catch(function (error) {
                 console.error(error);
                 catch_errors(error);
             });
+        }
+    }
 
 
+    let scanButton=document.getElementById("pair_nfc");
+    scanButton.addEventListener("click", async () => {
+        console.log("User clicked scan button search nfc");
+        try {
+            $("#modal_scansione").modal('show');
+            const ndef = new NDEFReader();
+            await ndef.scan();
+            console.log("> Scan started");
+
+            ndef.addEventListener("readingerror", () => {
+                $("#modal_scansione").modal('hide');
+                console.log("Argh! Cannot read data from the NFC tag. Try another one?");
+                show_alert("warning","Non è possibile leggere il tag NFC");
+                $("#alert").html("<div class=\"alert alert-warning\" >\n" +
+                    "                    <h4 class=\"alert-heading\">Informazioni</h4>\n" +
+                    "                    <p>Errore nella lettura del tag nfc</p>\n" +
+                    "                </div>");
+            });
+
+            ndef.addEventListener("reading", ({ message, serialNumber }) => {
+                $("#modal_scansione").modal('hide');
+                console.log(`> Serial Number: ${serialNumber}`);
+                console.log(serialNumber.replaceAll(":",""));
+                document.getElementById("search").value=serialNumber.replaceAll(":","");
 
 
+            });
+        } catch (error) {
+            console.log("Argh! " + error);
         }
 
+    });
 
-
-
-
-    }
-    function changeStatus(id,act){
-    if(act=="Inizia esecuzione" || act==="Riprendi esecuzione"){
-        console.log("CHANGE STATUS");
-        console.log("lo stato futuro selezionato è "+id);
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const maint_id = urlParams.get('id');
-        const options = {
-            method: 'GET',
-            url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id,
-            params: {include_tasklist: 'true'},
-            headers: {
-                'Content-Type': 'application/json',
-                'CMDBuild-Authorization': localStorage.getItem("auth_token")
-            }
-        };
-
-        axios.request(options).then(function (response) {
-            response.data.data.Action=id;
-            console.log(response.data.data);
-            let obj=response.data.data;
-            obj.Action=id;
-            obj._activity=obj._tasklist[0]._id;
-            obj._advance= true;
-            obj.ExecStartDate=Date.now();
-            console.log("JSON da inviare:");
-            console.log(obj);
-            const options = {
-                method: 'PUT',
-                url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id,
-                params: {include_tasklist: 'true'},
-                headers: {
-                    'Content-Type': 'application/json',
-                    'CMDBuild-Authorization': localStorage.getItem("auth_token")
-                },
-                data:obj
-            };
-            axios.request(options).then(function (response) {
-                console.log(response);
-                location.reload();
-            });
-
-
-        });
-    }
-    if(act==="Sospendi"){
-        console.log("CHANGE STATUS-SOSPENDI");
-        console.log("lo stato futuro selezionato è "+id);
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const maint_id = urlParams.get('id');
-        const options = {
-            method: 'GET',
-            url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id,
-            params: {include_tasklist: 'true'},
-            headers: {
-                'Content-Type': 'application/json',
-                'CMDBuild-Authorization': localStorage.getItem("auth_token")
-            }
-        };
-
-        axios.request(options).then(function (response) {
-            response.data.data.Action=id;
-            console.log(response.data.data);
-            let obj=response.data.data;
-            obj.Action=id;
-            obj._activity=obj._tasklist[0]._id;
-            obj._advance= true;
-            const get_suspension_reason = {
-                method: 'GET',
-                url: localStorage.getItem("server_url")+'/services/rest/v3/lookup_types/MaintProcess%20-%20SuspensionReason/values',
-                headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
-            };
-
-            axios.request(get_suspension_reason).then(function (response) {
-
-                $("#reasons").html("<fieldset class=\"form-group\">\n" +
-                    "                                        <select class=\"form-select\" id=\"select-reason\">\n" +
-                    "                                        </select>\n" +
-                    "                                    </fieldset>"+
-                    " <button  class=\"btn btn-warning\" onclick='suspend("+id+")'>Sospendi</button>");
-                response.data.data.forEach(reason=>{
-                    $("#select-reason").append("<option id='"+reason._id+"' value='"+reason.code+"'>"+reason._description_translation+"</option>")
-
-                });
-
-            }).catch(function (error) {
-                console.error(error);
-                catch_errors(error);
-            });
-
-
-
-
-
-
-        });
-
-    }
-
-    if(act=="Chiudi"){
-        // prendo i possibili MaintProcess - Outcome
-        const options = {
-            method: 'GET',
-            url: localStorage.getItem("server_url")+'/services/rest/v3/lookup_types/MaintProcess%20-%20Outcome/values',
-            headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
-        };
-
-        axios.request(options).then(function (response) {
-            console.log("Possibili MaintProcess - OutCome");
-            console.log(response.data);
-
-                $("#reasons").html("<fieldset class=\"form-group\">\n" +
-                    "                            <label for=\"basicInput\">Esito Manutenzione </label>\n" +
-                    "                                        <select class=\"form-select\" id=\"select-outcome\">\n" +
-                    "                                        </select>\n" +
-                    "                                    </fieldset>"+
-                    " <button  class=\"btn btn-warning\" onclick='Close("+id+")'>Chiudi Intervento</button>"
-                    );
-                response.data.data.forEach(outcome=>{
-                    $("#select-outcome").append("<option id='"+outcome._id+"'>"+outcome._description_translation+"</option>")
-
-                });
-
-
-            }).catch(function (error) {
-            console.error(error);
-            catch_errors(error);
-        });
-
-    }
-
-
-
-
-
-
-}
-    function Close(id){
-        console.log("chiudo la manutenzione");
-        // prendo la manutenzione corrente
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const maint_id = urlParams.get('id');
-        const opt = {
-            method: 'GET',
-            url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id,
-            params: {include_tasklist: 'true'},
-            headers: {
-                'Content-Type': 'application/json',
-                'CMDBuild-Authorization': localStorage.getItem("auth_token")
-            }
-        };
-        axios.request(opt).then(function (response) {
-
-            response.data.data.Action=id;
-            console.log(response.data.data);
-            let obj=response.data.data;
-            obj.Action=id;
-            obj._activity=obj._tasklist[0]._id;
-            obj._advance= true;
-            obj.Outcome=$("#select-outcome").children(":selected").attr("id");
-            obj.ExecEndDate=Date.now();
-            console.log("JSON da inviare:");
-            console.log(obj);
-            const options = {
-                method: 'PUT',
-                url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id,
-                params: {include_tasklist: 'true'},
-                headers: {
-                    'Content-Type': 'application/json',
-                    'CMDBuild-Authorization': localStorage.getItem("auth_token")
-                },
-                data:obj
-            };
-            axios.request(options).then(function (response) {
-                console.log(response);
-
-            });
-        });
-
-    }
-    function suspend(id){
-        // prendo la manutenzione corrente
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const maint_id = urlParams.get('id');
-        const opt = {
-            method: 'GET',
-            url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id,
-            params: {include_tasklist: 'true'},
-            headers: {
-                'Content-Type': 'application/json',
-                'CMDBuild-Authorization': localStorage.getItem("auth_token")
-            }
-        };
-        axios.request(opt).then(function (response) {
-
-            response.data.data.Action=id;
-            console.log(response.data.data);
-            let obj=response.data.data;
-            obj.Action=id;
-            obj._activity=obj._tasklist[0]._id;
-            obj._advance= true;
-            obj._SuspensionReason_code=$("#select-reason option:selected").val()
-
-
-
-        console.log("JSON da inviare:");
-        console.log(obj);
-        const options = {
-            method: 'PUT',
-            url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id,
-            params: {include_tasklist: 'true'},
-            headers: {
-                'Content-Type': 'application/json',
-                'CMDBuild-Authorization': localStorage.getItem("auth_token")
-            },
-            data:obj
-        };
-        axios.request(options).then(function (response) {
-            console.log(response);
-            location.reload();
-        });
-        });
-    }
-
-function save(){
+    function save(){
    console.log("TODO function SAVE");
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -502,32 +313,7 @@ function save(){
 
 
 }
-    function open_pdf(id){
-        var request = new XMLHttpRequest();
-        request.open("GET", localStorage.getItem("server_url")+"/services/rest/v3/reports/286763/Activity%20report.pdf?extension=pdf&parameters=%7B%22ProcessId%22%3A"+id+"%7D'");
-        request.responseType = "blob";
-        request.setRequestHeader('CMDBuild-Authorization', localStorage.getItem("auth_token"));
 
-        request.onload = function (e) {
-            if (this.status === 200) {
-                // `blob` response
-                console.log(this.response);
-                // create `objectURL` of `this.response` : `.pdf` as `Blob`
-                var file = window.URL.createObjectURL(this.response);
-                var a = document.createElement("a");
-                a.href = file;
-                a.download = this.response.name || "RapportoManutenzione_"+id;
-                document.body.appendChild(a);
-                a.click();
-                // remove `a` following `Save As` dialog,
-                // `window` regains `focus`
-                window.onfocus = function () {
-                    document.body.removeChild(a)
-                }
-            };
-        };
-        request.send();
-    }
 
 </script>
 

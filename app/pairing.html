@@ -156,6 +156,7 @@
 
     }
     function search(){
+        $("#alert").html("");
         document.getElementById("spinner").style.visibility = "visible";
         $("#assets").html("");
         const options = {
@@ -182,6 +183,7 @@
                     "                                <p class=\"card-text\">\n" + asset._Type_description_translation + "</p>\n" +
                     "                                <p class=\"card-text\">\n" +asset._Building_description+" "+asset._Floor_description+" "+asset._Room_description+ "</p>\n" +
                     "                                <p class=\"card-text\">\n" +asset._State_description_translation+ "</p>\n" +
+                    "                                <p class=\"card-text\">\n" +asset.NFCCode+ "</p>\n" +
                     "                            </div>\n" +
                     "                        </div>\n" +
                     "                        <div class=\"card-footer d-flex justify-content-between\">\n" +
@@ -199,6 +201,7 @@
     }
 
     function show_filtered(){
+        $("#alert").html("");
         document.getElementById("spinner").style.visibility = "visible";
         $("#assets").html("");
         const options = {
@@ -223,6 +226,7 @@
                             "                                <p class=\"card-text\">\n" + asset._Type_description_translation + "</p>\n" +
                             "                                <p class=\"card-text\">\n" +asset._Building_description+" "+asset._Floor_description+" "+asset._Room_description+ "</p>\n" +
                             "                                <p class=\"card-text\">\n" +asset._State_description_translation+ "</p>\n" +
+                            "                                <p class=\"card-text\">\n" +asset.NFCCode+ "</p>\n" +
                             "                            </div>\n" +
                             "                        </div>\n" +
                             "                        <div class=\"card-footer d-flex justify-content-between\">\n" +
@@ -268,13 +272,6 @@
                     "                    <h4 class=\"alert-heading\">Lettura NFC Effettuata Correttamente ... attendere</h4>" +
                     "                    <p>La lettura del della Skill Card è stata eseguita con successo, attendere .... </p>" +
                     "                </div>");
-
-
-
-
-
-
-
             });
         } catch (error) {
             console.log("Argh! " + error);
