@@ -164,7 +164,7 @@
             axios.request(get_attachments_options).then(function (response) {
                 let attachments=response.data.data;
                 attachments.forEach(attachment=>{
-                    $("#attachments").append("<p class=\"card-text\"></p><h6>"+attachment.name+"</h6> <p></p>");
+                    $("#attachments").append("<p class=\"card-text\"></p><h6>"+attachment.name+"</h6> <a class=\"btn btn-success\"target='_blank' href='"+localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id+'/attachments/'+attachment._id+"/"+attachment.name+"'> Download</a><p></p>");
                 });
 
             }).catch(function (error) {
