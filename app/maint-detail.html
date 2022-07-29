@@ -571,6 +571,37 @@
         });
 
     }
+        if(act=="Rifiuta e chiudi"){
+            // prendo i possibili MaintProcess - Outcome
+            const options = {
+                method: 'GET',
+                url: localStorage.getItem("server_url")+'/services/rest/v3/lookup_types/MaintProcess%20-%20Outcome/values',
+                headers: {'CMDBuild-Authorization': localStorage.getItem("auth_token")}
+            };
+
+            axios.request(options).then(function (response) {
+                console.log("Possibili MaintProcess - OutCome");
+                console.log(response.data);
+
+                $("#reasons").html("<fieldset class=\"form-group\">\n" +
+                    "                            <label for=\"basicInput\">Esito Manutenzione </label>\n" +
+                    "                                        <select class=\"form-select\" id=\"select-outcome\">\n" +
+                    "                                        </select>\n" +
+                    "                                    </fieldset>"+
+                    " <button  class=\"btn btn-warning\" onclick='Close("+id+")'>Chiudi Intervento</button>"
+                );
+                response.data.data.forEach(outcome=>{
+                    $("#select-outcome").append("<option id='"+outcome._id+"'>"+outcome._description_translation+"</option>")
+
+                });
+
+
+            }).catch(function (error) {
+                console.error(error);
+                catch_errors(error);
+            });
+
+        }
 
 
 

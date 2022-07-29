@@ -192,8 +192,8 @@
                             console.log(`> Serial Number: ${serialNumber}`);
                             console.log(serialNumber.replaceAll(":",""));
                             $("#reading_modal").html("<p>Lettura avvenuta con succcesso:</p>" +
-                                "<p>TAG Letto: "+asset.NFCCode+"</p>" +
-                                "<p>TAG Presente: "+serialNumber.replaceAll(":","")+"</p>" +
+                                "<p>TAG Presente: "+asset.NFCCode+"</p>" +
+                                "<p>TAG Letto : "+serialNumber.replaceAll(":","")+"</p>" +
                                 "Sostituire? " +
                                 "<button  class=\"btn btn-warning\" onclick=\"replace_NFCCode('"+asset_id+"', '"+serialNumber.replaceAll(":","")+"')\" >Abbina Tag NFC</button>");
                         });
