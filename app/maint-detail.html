@@ -175,9 +175,8 @@
 
                         "                    </div>"
                     );
-                }else{
-
-
+                }
+                else{
                 $("#maints").append("<div class=\"card\">\n" +
                     "                        <div class=\"card-content\">\n" +
                     "                            <div class=\"card-body\">\n" +
@@ -368,6 +367,23 @@
                         catch_errors(error);
                     });
                 }
+                    // Load Attachments
+                    console.log("Load Attachments");
+                    const get_attachments_options = {
+                        method: 'GET',
+                        url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id+'/attachments',
+                        headers: {'CMDBuild-Authorization': localStorage.get("auth_token")}
+                    };
+
+                    axios.request(get_attachments_options).then(function (response) {
+                        attachments=response.data;
+                        attachments.forEach(attachment=>{
+                            $("#attachments").append("<p class=\"card-text\"></p><h6>"+attachment.name+"</h6> <p></p>");
+                        });
+
+                    }).catch(function (error) {
+                        console.error(error);
+                    });
 
 
                 }
@@ -376,23 +392,7 @@
                 catch_errors(error);
             });
 
-            // Load Attachments
-            console.log("Load Attachments");
-            const get_attachments_options = {
-                method: 'GET',
-                url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id+'/attachments',
-                headers: {'CMDBuild-Authorization': localStorage.get("auth_token")}
-            };
 
-            axios.request(get_attachments_options).then(function (response) {
-                attachments=response.data;
-                attachments.forEach(attachment=>{
-                    $("#attachments").append("<p class=\"card-text\"></p><h6>"+attachment.name+"</h6> <p></p>");
-                });
-
-            }).catch(function (error) {
-                console.error(error);
-            });
 
 
 
