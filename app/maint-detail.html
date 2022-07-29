@@ -239,7 +239,7 @@
                 }
                 // se lo stato è diverso da pianificato allora faccio fare azioni
                 if(maint._ProcessStatus_description_translation!=="Pianififcato" && maint._ProcessStatus_description_translation!=="Completato"){
-
+                    $("#maints-attachments > div > div > div > div:nth-child(1) > div.col-2.col-md-2.col-sm-2.col-lg-2 > button").remove();
 
                 GetPossibleStates = {
                     method: 'GET',
