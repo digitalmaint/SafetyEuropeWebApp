@@ -377,6 +377,7 @@
             });
 
             // Load Attachments
+            console.log("Load Attachments");
             const get_attachments_options = {
                 method: 'GET',
                 url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id+'/attachments',
