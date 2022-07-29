@@ -162,7 +162,7 @@
             };
 
             axios.request(get_attachments_options).then(function (response) {
-                attachments=response.data;
+                let attachments=response.data.data;
                 attachments.forEach(attachment=>{
                     $("#attachments").append("<p class=\"card-text\"></p><h6>"+attachment.name+"</h6> <p></p>");
                 });
