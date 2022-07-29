@@ -153,23 +153,7 @@
                     'CMDBuild-Authorization': localStorage.getItem("auth_token")
                 }
             };
-            // Load Attachments
-            console.log("Load Attachments");
-            const get_attachments_options = {
-                method: 'GET',
-                url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id+'/attachments',
-                headers: {'CMDBuild-Authorization': localStorage.get("auth_token")}
-            };
 
-            axios.request(get_attachments_options).then(function (response) {
-                attachments=response.data;
-                attachments.forEach(attachment=>{
-                    $("#attachments").append("<p class=\"card-text\"></p><h6>"+attachment.name+"</h6> <p></p>");
-                });
-
-            }).catch(function (error) {
-                console.error(error);
-            });
 
             axios.request(options).then(function (response) {
                 console.log("SINGLE MAINTENANCE _ GETTED");
