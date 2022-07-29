@@ -139,7 +139,7 @@
             </div>
             <div class="modal-body">
                 <div>
-                    <label for="file_to_upload" class="form-label">Seleziona il File da Caricare</label>
+                    <label for="file_to_upload" class="form-label">Seleziona il file da caricare</label>
                     <input class="form-control form-control-lg" id="file_to_upload" type="file">
                 </div>
 
@@ -151,7 +151,7 @@
                     <i class="bx bx-x d-block d-sm-none"></i>
                     <span class="d-none d-sm-block">Chiudi</span>
                 </button>
-                <button type="button" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                <button type="button" class="btn btn-primary ml-1"  onclick="upload_attachment()">
                     <i class="bx bx-check d-block d-sm-none"></i>
                     <span class="d-none d-sm-block">Carica</span>
                 </button>
@@ -173,6 +173,7 @@
             window.location.href = "./index.html";
         }
         else{
+
             const maint_id = urlParams.get('id');
             const options = {
                 method: 'GET',
@@ -797,6 +798,34 @@ function save(){
     }
     function open_upload_attachment(){
         $("#modal_upload").modal('show');
+    }
+    function upload_attachment(){
+       console.log($("#file_to_upload").target.files[0].name);
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const maint_id = urlParams.get('id');
+
+
+        const form = new FormData();
+        form.append("file ", "/Users/filippoluppi/Downloads/RapportoManutenzione_6452640.pdf");
+        form.append("attachment", "{\"name\":\"RapportoManutenzione_6241137.pdf\",\"version\":\"1.0\",\"category\":\"11\",\"CreationDate\":null,\"Size\":null,\"Hash\":null,\"Category\":null,\"MimeType\":null,\"Version\":null,\"FileName\":null,\"DocumentId\":null,\"Card\":null,\"Code\":null,\"Description\":null,\"Notes\":\"rappp\"}");
+
+        const options = {
+            method: 'POST',
+            url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id+'/attachments',
+            params: {include_tasklist: 'true'},
+            headers: {
+                'CMDBuild-Authorization': localStorage.getItem("auth_token"),
+                'content-type': 'multipart/form-data; boundary=---011000010111000001101001'
+            },
+            data: '[form]'
+        };
+
+        axios.request(options).then(function (response) {
+            console.log(response.data);
+        }).catch(function (error) {
+            console.error(error);
+        });
     }
 
 </script>
