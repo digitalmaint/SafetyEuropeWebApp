@@ -130,7 +130,7 @@
         </footer>
     </div>
 </div>
-<div class="modal fade text-left modal-borderless" id="modal_scansione" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+<div class="modal fade text-left modal-borderless" id="modal_upload" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -791,7 +791,7 @@ function save(){
         request.send();
     }
     function open_upload_attachment(){
-
+        $("#modal_upload").modal('show');
     }
 
 </script>
