@@ -800,6 +800,10 @@ function save(){
         $("#modal_upload").modal('show');
     }
     function upload_attachment(){
+        $('#file_to_upload').change(function(e) {
+            var fileName = e.target.files[0].name;
+            console.log(fileName);
+        }
        console.log($("#file_to_upload").target.files[0].name);
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
