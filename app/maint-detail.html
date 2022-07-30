@@ -844,12 +844,12 @@ function save(){
         const options = {
             method: 'POST',
             url: localStorage.getItem("server_url")+'/services/rest/v3/processes/PreventiveMaint/instances/'+maint_id+'/attachments',
-            params: {include_tasklist: 'true'},
+
             headers: {
                 'CMDBuild-Authorization': localStorage.getItem("auth_token"),
                 'content-type': 'multipart/form-data; boundary=---011000010111000001101001'
             },
-            data: form
+            data: '[form]'
         };
 
         axios.request(options).then(function (response) {
