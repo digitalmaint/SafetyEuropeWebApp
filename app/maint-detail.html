@@ -837,24 +837,26 @@ function save(){
         const maint_id = urlParams.get('id');
 
 
-        axios.post(
-            'https://platform.safetyeurope.eu/openmaint-test/services/rest/v3/processes/PreventiveMaint/instances/6561071/attachments',
-            '------WebKitFormBoundaryvQmMVCA8mh5XqgaP\r\nContent-Disposition: form-data; name="file"; filename="RapportoManutenzione_656108314.pdf"\r\nContent-Type: application/pdf\r\n\r\n\r\n------WebKitFormBoundaryvQmMVCA8mh5XqgaP\r\nContent-Disposition: form-data; name="attachment"; filename="blob"\r\nContent-Type: application/json\r\n\r\n{"name":"RapportoManutenzione_656108314.pdf","version":"1.0","category":"11","CreationDate":null,"Size":null,"Hash":null,"Category":null,"MimeType":null,"Version":null,"FileName":null,"DocumentId":null,"Card":null,"Code":null,"Description":null}\r\n------WebKitFormBoundaryvQmMVCA8mh5XqgaP--\r\n',
-            {
-                headers: {
-                    'Accept': '*/*',
-                    'Accept-Language': 'it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7',
-                    'CMDBuild-ActionId': 'proc.inst.save',
-                    'Cache-Control': 'no-cache',
-                    'CMDBuild-Authorization': localStorage.getItem("auth_token"),
+        const form = new FormData();
+        form.append("file ",$("#file_to_upload").prop('files'), $("#file_to_upload").val().split('\\').pop());
+        form.append("attachment", "{\"name\":\""+$("#file_to_upload").val().split('\\').pop()+"\",\"version\":\"1.0\",\"category\":\"11\",\"CreationDate\":null,\"Size\":null,\"Hash\":null,\"Category\":null,\"MimeType\":null,\"Version\":null,\"FileName\":null,\"DocumentId\":null,\"Card\":null,\"Code\":null,\"Description\":null,\"Notes\":\"rappp\"}");
 
-                    'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryvQmMVCA8mh5XqgaP',
+        const options = {
+            method: 'POST',
+            url: 'https://platform.safetyeurope.eu/openmaint-test/services/rest/v3/processes/PreventiveMaint/instances/6561071/attachments',
+            params: {include_tasklist: 'true'},
+            headers: {
+                'CMDBuild-Authorization': localStorage.getItem("auth_token"),
+                'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001'
+            },
+            data: '[form]'
+        };
 
-                    'Pragma': 'no-cache',
-
-                }
-            }
-        );
+        axios.request(options).then(function (response) {
+            console.log(response.data);
+        }).catch(function (error) {
+            console.error(error);
+        });
     }
 
 </script>
