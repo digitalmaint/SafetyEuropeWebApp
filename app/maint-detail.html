@@ -849,7 +849,7 @@ function save(){
                 'CMDBuild-Authorization': localStorage.getItem("auth_token"),
                 'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001'
             },
-            data: '[form]'
+            data: form
         };
 
         axios.request(options).then(function (response) {
