@@ -838,7 +838,7 @@ function save(){
 
 
         const form = new FormData();
-        form.append("file ",$("#file_to_upload").prop('files'), $("#file_to_upload").val().split('\\').pop());
+        form.append("file ",$("#file_to_upload")[0].files[0], $("#file_to_upload").val().split('\\').pop());
         form.append("attachment", "{\"name\":\""+$("#file_to_upload").val().split('\\').pop()+"\",\"version\":\"1.0\",\"category\":\"11\",\"CreationDate\":null,\"Size\":null,\"Hash\":null,\"Category\":null,\"MimeType\":null,\"Version\":null,\"FileName\":null,\"DocumentId\":null,\"Card\":null,\"Code\":null,\"Description\":null,\"Notes\":\"rappp\"}");
 
         const options = {
