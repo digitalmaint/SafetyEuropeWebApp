@@ -832,7 +832,6 @@ function save(){
     }
     function upload_attachment(){
 
-       console.log($("#file_to_upload").target.files[0].name);
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const maint_id = urlParams.get('id');
